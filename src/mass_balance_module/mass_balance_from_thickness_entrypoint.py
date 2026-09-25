@@ -12,11 +12,11 @@ from pathlib import Path
 
 import cyclopts
 import xarray as xr
+from sea_level_response.selrem.selrem_input_prep import get_dataset_crs, prepare_gridded_ds_for_selrem
 
 from mass_balance_module.config import MASS_BALANCE_COL_NAME
 from mass_balance_module.helpers import write_to_geozarr_file
 from mass_balance_module.mass_balance.mass_balance_from_thickness import compute_mass_balance
-from mass_balance_module.selrem.selrem_input_prep import get_dataset_crs, prepare_gridded_ds_for_selrem
 
 logger = logging.getLogger(__name__)
 

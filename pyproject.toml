@@ -19,17 +19,14 @@ scipy = "^1.16.3"
 xarray = "^2025.12.0"
 netcdf4 = "^1.7.4"
 matplotlib = "^3.10.8"
-# numba = "^0.66.0"
-# cartopy = "^0.25.0"
 zarr = "^3.1.5"
 cyclopts = "^4.5.1"
 xgboost = "^3.2.0"
 cloudpickle = "^3.1.2"
-# fsspec = "^2026.2.0"
 requests = "^2.32.5"
-# aiohttp = "^3.13.3"
 rioxarray = ">=0.15.0,<0.22.0"
 data_converter = { git = "https://github.com/DTC-Ice-Sheets/data_converter.git", tag = "0.0.48" }
+sea_level_response = { git = "https://github.com/DTC-Ice-Sheets/sea_level_response.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
