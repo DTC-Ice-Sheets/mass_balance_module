@@ -21,8 +21,7 @@ logger = logging.getLogger(__name__)
 
 def netcdf_to_csv_gris(netcdf_path: str, output_csv: str) -> None:
     """
-    Convert GrIS NetCDF to CSV, only including grid
-    points with at least one non-NaN measurement.
+    Convert GrIS NetCDF to CSV, only including grid points with at least one non-NaN measurement.
 
     Parameters
     ----------
@@ -34,13 +33,13 @@ def netcdf_to_csv_gris(netcdf_path: str, output_csv: str) -> None:
     ds = xr.open_dataset(netcdf_path)
 
     # Adjust variable names if needed
-    y_dim = ds["y"].values
-    x_dim = ds["x"].values
-    times = ds["Year"].values  # Should be years or convertible to years
-    mb = ds["VMB"].values  # Shape: (y, x, year)
-    mb_error = ds["VMBer"].values  # Shape: (y, x, year)
-    lat2d = ds["lat"].values  # Shape: (y, x)
-    lon2d = ds["lon"].values  # Shape: (y, x)
+    y_dim = ds["y"].to_numpy()
+    x_dim = ds["x"].to_numpy()
+    times = ds["Year"].to_numpy()  # Should be years or convertible to years
+    mb = ds["VMB"].to_numpy()  # Shape: (y, x, year)
+    mb_error = ds["VMBer"].to_numpy()  # Shape: (y, x, year)
+    lat2d = ds["lat"].to_numpy()  # Shape: (y, x)
+    lon2d = ds["lon"].to_numpy()  # Shape: (y, x)
 
     rows = []
     for i_y in range(len(y_dim)):
@@ -71,6 +70,7 @@ def compute_yearly_ais_mass(
 ) -> np.ndarray:
     """
     Compute yearly mass for each grid cell from AIS data.
+
     Since GRACE-like data has irregular time steps, aggregate per calendar year.
 
     Parameters
@@ -111,6 +111,7 @@ def compute_yearly_ais_mass(
 def netcdf_to_csv_ais(netcdf_path: str, output_csv: str) -> None:
     """
     Convert AIS NetCDF to CSV, storing the *change to previous year* for each grid cell.
+
     For each grid cell, average all entries per calendar year, then compute year-on-year change.
     Only includes grid points with at least one non-NaN and non-zero change.
 
@@ -122,13 +123,13 @@ def netcdf_to_csv_ais(netcdf_path: str, output_csv: str) -> None:
         Path to the output CSV file.
     """
     ds = xr.open_dataset(netcdf_path)
-    y_dim = ds["y"].values
-    x_dim = ds["x"].values
-    times = ds["time_dec"].values  # decimal years
-    dm = ds["dm"].values  # (time, y, x)
-    area = ds["area"].values  # (y, x)
-    lat2d = ds["lat"].values
-    lon2d = ds["lon"].values
+    y_dim = ds["y"].to_numpy()
+    x_dim = ds["x"].to_numpy()
+    times = ds["time_dec"].to_numpy()  # decimal years
+    dm = ds["dm"].to_numpy()  # (time, y, x)
+    area = ds["area"].to_numpy()  # (y, x)
+    lat2d = ds["lat"].to_numpy()
+    lon2d = ds["lon"].to_numpy()
 
     years = np.floor(times).astype(int)
     unique_years = np.unique(years)
@@ -199,7 +200,7 @@ def combine_gris_ais_csv(gris_csv_path: str, ais_csv_path: str, output_csv_path:
         df_ais = pd.concat([df_ais, pd.DataFrame("", index=df_ais.index, columns=missing_ais)], axis=1)
 
     # Sort columns: lat, lon, then all year columns
-    sorted_cols = ["lat", "lon"] + all_year_cols
+    sorted_cols = ["lat", "lon", *all_year_cols]
     df_gris = df_gris[sorted_cols]
     df_ais = df_ais[sorted_cols]
 
@@ -211,8 +212,7 @@ def combine_gris_ais_csv(gris_csv_path: str, ais_csv_path: str, output_csv_path:
 
 def plot_random_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -> None:
     """
-    Plot time series of mass change for a random grid cell
-    from both GrIS and AIS datasets, with AIS scale on the right y-axis.
+    Plot GrIS and AIS mass-change time series for a random grid cell.
 
     Parameters
     ----------
@@ -223,8 +223,8 @@ def plot_random_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str)
     """
     # --- GrIS ---
     ds_gris = xr.open_dataset(gris_netcdf_path)
-    times_gris = ds_gris["Year"].values
-    mb_gris = ds_gris["VMB"].values  # (y, x, year)
+    times_gris = ds_gris["Year"].to_numpy()
+    mb_gris = ds_gris["VMB"].to_numpy()  # (y, x, year)
 
     # Find valid grid cells (at least one non-NaN value)
     valid_gris = np.argwhere(~np.all(np.isnan(mb_gris), axis=2))
@@ -233,11 +233,11 @@ def plot_random_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str)
 
     # --- AIS ---
     ds_ais = xr.open_dataset(ais_netcdf_path)
-    y_dim_ais = ds_ais["y"].values
-    x_dim_ais = ds_ais["x"].values
-    times_ais = ds_ais["time_dec"].values
-    dm_ais = ds_ais["dm"].values  # (time, y, x)
-    area_ais = ds_ais["area"].values  # (y, x)
+    y_dim_ais = ds_ais["y"].to_numpy()
+    x_dim_ais = ds_ais["x"].to_numpy()
+    times_ais = ds_ais["time_dec"].to_numpy()
+    dm_ais = ds_ais["dm"].to_numpy()  # (time, y, x)
+    area_ais = ds_ais["area"].to_numpy()  # (y, x)
 
     # Find valid grid cells (at least one non-zero and non-NaN value)
     valid_ais = []
@@ -250,7 +250,7 @@ def plot_random_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str)
     mass_changes = [dm_ais[i_time, i_y_ais, i_x_ais] * area_ais[i_y_ais, i_x_ais] for i_time in range(len(times_ais))]
 
     # --- Plot with twin y-axis ---
-    fig, ax1 = plt.subplots(figsize=(10, 5))
+    _, ax1 = plt.subplots(figsize=(10, 5))
     color1 = "tab:blue"
     color2 = "tab:orange"
 
@@ -276,8 +276,8 @@ def plot_random_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str)
 
 def plot_sum_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -> None:
     """
-    Plot time series of sum mass change over the entire spatial grid
-    for both GrIS and AIS datasets.
+    Plot time series of sum mass change over the entire spatial grid for both GrIS and AIS datasets.
+
     Averages AIS data to calendar years before spatial aggregation.
 
     Parameters
@@ -289,17 +289,17 @@ def plot_sum_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) ->
     """
     # --- GrIS ---
     ds_gris = xr.open_dataset(gris_netcdf_path)
-    times_gris = ds_gris["Year"].values
-    mb_gris = ds_gris["VMB"].values  # (y, x, year)
+    times_gris = ds_gris["Year"].to_numpy()
+    mb_gris = ds_gris["VMB"].to_numpy()  # (y, x, year)
     sum_mb_gris = np.nansum(mb_gris, axis=(0, 1)) / 10**12
 
     # --- AIS (year-averaging) and differencing ---
     ds_ais = xr.open_dataset(ais_netcdf_path)
-    times_ais = ds_ais["time_dec"].values
+    times_ais = ds_ais["time_dec"].to_numpy()
     years_ais = np.floor(times_ais).astype(int)
     unique_years_ais = np.unique(years_ais)
-    dm_ais = ds_ais["dm"].values  # (time, y, x)
-    area_ais = ds_ais["area"].values  # (y, x)
+    dm_ais = ds_ais["dm"].to_numpy()  # (time, y, x)
+    area_ais = ds_ais["area"].to_numpy()  # (y, x)
 
     sum_mass_ais_per_year = []
     for year in unique_years_ais:
@@ -330,8 +330,8 @@ def plot_sum_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) ->
 
 def plot_mean_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -> None:
     """
-    Plot time series of mean mass change over the entire spatial grid
-    for both GrIS and AIS datasets.
+    Plot time series of mean mass change over the entire spatial grid for both GrIS and AIS datasets.
+
     Averages AIS data to calendar years before spatial aggregation.
 
     Parameters
@@ -343,17 +343,17 @@ def plot_mean_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -
     """
     # --- GrIS ---
     ds_gris = xr.open_dataset(gris_netcdf_path)
-    times_gris = ds_gris["Year"].values
-    mb_gris = ds_gris["VMB"].values  # (y, x, year)
+    times_gris = ds_gris["Year"].to_numpy()
+    mb_gris = ds_gris["VMB"].to_numpy()  # (y, x, year)
     mean_mb_gris = np.nanmean(mb_gris, axis=(0, 1)) / 10**12
 
     # --- AIS (year-averaging) ---
     ds_ais = xr.open_dataset(ais_netcdf_path)
-    times_ais = ds_ais["time_dec"].values
+    times_ais = ds_ais["time_dec"].to_numpy()
     years_ais = np.floor(times_ais).astype(int)
     unique_years_ais = np.unique(years_ais)
-    dm_ais = ds_ais["dm"].values  # (time, y, x)
-    area_ais = ds_ais["area"].values  # (y, x)
+    dm_ais = ds_ais["dm"].to_numpy()  # (time, y, x)
+    area_ais = ds_ais["area"].to_numpy()  # (y, x)
 
     # For each year, average all time steps in that year for each grid cell
     mean_mass_ais_per_year = []
@@ -368,7 +368,7 @@ def plot_mean_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -
         mean_mass_ais_per_year.append(np.nanmean(mass_year) / 10**12)  # mean over grid
 
     # --- Plot with twin y-axis ---
-    fig, ax1 = plt.subplots(figsize=(10, 5))
+    _, ax1 = plt.subplots(figsize=(10, 5))
     color1 = "tab:blue"
     color2 = "tab:orange"
 
@@ -395,8 +395,8 @@ def plot_mean_timeseries_gris_ais(gris_netcdf_path: str, ais_netcdf_path: str) -
 
 def plot_mean_timeseries_change_gris_ais_from_csv(gris_csv_path: str, ais_csv_path: str) -> None:
     """
-    Plot time series of mean mass change over the entire spatial grid
-    for both GrIS and AIS datasets.
+    Plot time series of mean mass change over the entire spatial grid for both GrIS and AIS datasets.
+
     Averages AIS data to calendar years before spatial aggregation.
 
     Parameters
@@ -409,22 +409,22 @@ def plot_mean_timeseries_change_gris_ais_from_csv(gris_csv_path: str, ais_csv_pa
     # --- GrIS ---
     df_gris = pd.read_csv(gris_csv_path)
     # Extract year columns (ending with "_mb" or "_mb_change")
-    gris_year_cols = [col for col in df_gris.columns if col.endswith("_mb") or col.endswith("_mb_change")]
+    gris_year_cols = [col for col in df_gris.columns if col.endswith(("_mb", "_mb_change"))]
     gris_years = [int(col.split("_")[0]) for col in gris_year_cols]
     gris_years, gris_year_cols = zip(*sorted(zip(gris_years, gris_year_cols, strict=True)), strict=True)
-    gris_vals = df_gris[list(gris_year_cols)].values
+    gris_vals = df_gris[list(gris_year_cols)].to_numpy()
     mean_gris = np.nanmean(gris_vals, axis=0)
 
     # --- AIS ---
     df_ais = pd.read_csv(ais_csv_path)
-    ais_year_cols = [col for col in df_ais.columns if col.endswith("_mb") or col.endswith("_mb_change")]
+    ais_year_cols = [col for col in df_ais.columns if col.endswith(("_mb", "_mb_change"))]
     ais_years = [int(col.split("_")[0]) for col in ais_year_cols]
     ais_years, ais_year_cols = zip(*sorted(zip(ais_years, ais_year_cols, strict=True)), strict=True)
-    ais_vals = df_ais[list(ais_year_cols)].values
+    ais_vals = df_ais[list(ais_year_cols)].to_numpy()
     mean_ais = np.nanmean(ais_vals, axis=0)
 
     # --- Plot with twin y-axis ---
-    fig, ax1 = plt.subplots(figsize=(10, 5))
+    _, ax1 = plt.subplots(figsize=(10, 5))
     color1 = "tab:blue"
     color2 = "tab:orange"
 

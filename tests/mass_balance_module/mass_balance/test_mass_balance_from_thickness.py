@@ -41,7 +41,7 @@ def dt_years(example_thickness_ds: xr.Dataset) -> np.ndarray:
 
 
 @pytest.mark.parametrize(
-    "ds,cf_names,expected",
+    ("ds", "cf_names", "expected"),
     [
         (
             xr.Dataset({"th": xr.DataArray([1], attrs={"standard_name": "land_ice_thickness"})}),
@@ -152,10 +152,10 @@ def test_infer_cell_area_from_explicit_variable(example_thickness_ds: xr.Dataset
 def test_infer_cell_area_from_regular_1d_coords(example_thickness_ds: xr.Dataset):
     """Regular 1-D x/y coords should yield dx*dy per cell."""
     area = infer_cell_area(example_thickness_ds)
-    np.testing.assert_equal(float(area.values.flat[0]), 1000.0 * 1000.0)
+    np.testing.assert_equal(float(area.to_numpy().flat[0]), 1000.0 * 1000.0)
 
 
-def test_infer_cell_area_raises_no_coords(example_thickness_ds: xr.Dataset):
+def test_infer_cell_area_raises_no_coords():
     """Dataset without cell_area or x/y coords should raise ValueError."""
     ds = xr.Dataset({"data": (("time",), [1, 2, 3])})
     with pytest.raises(ValueError, match="cell_area"):

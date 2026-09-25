@@ -34,10 +34,7 @@ def main(
         temperature variable replaced by the enhanced version.
     """
     # TODO Temporarily fallback to placeholder dataset when input geozarr is empty
-    if input_geozarr in ("", "."):  # NOTE: Path("") resolves to (".")
-        dataset = xr.open_zarr(DATASET_URL)
-    else:
-        dataset = xr.open_zarr(input_geozarr)
+    dataset = xr.open_zarr(DATASET_URL) if input_geozarr in ("", ".") else xr.open_zarr(input_geozarr)
 
     enhanced_temperature_data = xr.open_zarr(enhanced_temperature_data_path)
 

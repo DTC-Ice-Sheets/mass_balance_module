@@ -33,10 +33,7 @@ def main(
         elevation-change, radar-distance and radar-mode features replaced by their per-year values.
     """
     # TODO Temporarily fallback to placeholder dataset when input geozarr is empty
-    if input_geozarr == Path():
-        dataset = xr.open_zarr(DATASET_URL)
-    else:
-        dataset = xr.open_zarr(input_geozarr)
+    dataset = xr.open_zarr(DATASET_URL) if input_geozarr == Path() else xr.open_zarr(input_geozarr)
     elevation_change_data = xr.open_zarr(elevation_change_data_path)
 
     annual_elevation_change = aggregate_year_by_annual_change(elevation_change_data)

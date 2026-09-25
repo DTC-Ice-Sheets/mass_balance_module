@@ -124,7 +124,7 @@ def write_to_geozarr_file(data: xr.Dataset, output_path: Path) -> None:
     logger.info("GeoZarr written successfully.")
 
 
-def path_or_web_url_validator(type_: object, path_or_url: Path | str) -> str:
+def path_or_web_url_validator(type_: object, path_or_url: Path | str) -> str:  # noqa: ARG001 - cyclopts compatibility
     """Validate that the provided path is either a valid local path or a web URL.
 
     NOTE: Path("") resolves to the current directory (".") - which is considered a valid path.

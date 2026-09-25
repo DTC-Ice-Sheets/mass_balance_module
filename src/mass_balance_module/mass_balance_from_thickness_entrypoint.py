@@ -63,10 +63,7 @@ def main(
     crs = get_dataset_crs(input_ds)
     mb_ds = mb_ds.rio.write_crs(crs)
 
-    if prep_for_selrem:
-        result = prepare_gridded_ds_for_selrem(mb_ds, coarsen_factor=coarsen_factor)
-    else:
-        result = mb_ds
+    result = prepare_gridded_ds_for_selrem(mb_ds, coarsen_factor=coarsen_factor) if prep_for_selrem else mb_ds
 
     write_to_geozarr_file(result, output_path)
 

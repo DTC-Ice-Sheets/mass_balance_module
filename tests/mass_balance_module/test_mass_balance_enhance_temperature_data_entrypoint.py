@@ -49,7 +49,7 @@ def mock_aggregate_year_by_mean(simple_zarr_dataset) -> Generator[xr.Dataset, No
 # our test matrix should test files and urls for both input_geozarr and enhanced_temperature_data_path
 # The field "expects_default_dataset" is required to denote cases where we expect DATASET_URL to be injected
 @pytest.mark.parametrize(
-    "input_geozarr_source, expects_default_dataset, input_temperature_data_source",
+    ("input_geozarr_source", "expects_default_dataset", "input_temperature_data_source"),
     [
         ("empty_str", True, "valid_geozarr_file"),
         ("empty_path", True, "valid_url"),
@@ -101,7 +101,7 @@ def test_mass_balance_enhance_temperature_data_entrypoint_valid(
 
 
 @pytest.mark.parametrize(
-    "geozarr_source, enhanced_temperature_data_source",
+    ("geozarr_source", "enhanced_temperature_data_source"),
     [
         ("invalid_url", "valid_geozarr_file"),
         ("invalid_geozarr_path", "valid_geozarr_file"),

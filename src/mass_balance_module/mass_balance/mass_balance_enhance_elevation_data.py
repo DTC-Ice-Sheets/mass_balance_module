@@ -99,7 +99,7 @@ def set_radar_acquisition_features(data: xr.Dataset, sarin_start: datetime = SAR
 
     data["RAdist"] = xr.ones_like(data["RAdh"])
 
-    is_lrm_year = xr.DataArray(data["time"].values < sarin_start.year, dims="time", coords={"time": data["time"]})
+    is_lrm_year = xr.DataArray(data["time"].to_numpy() < sarin_start.year, dims="time", coords={"time": data["time"]})
     data["RAmode"] = xr.where(is_lrm_year, 1.0, data["RAmode"])
 
     return data

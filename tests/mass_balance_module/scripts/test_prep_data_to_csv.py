@@ -58,7 +58,7 @@ def sample_gris_dataset():
     vmb_error = np.abs(vmb_data * 0.15)
 
     # Create xarray dataset
-    ds = xr.Dataset(
+    return xr.Dataset(
         {
             "VMB": (["y", "x", "Year"], vmb_data),
             "VMBer": (["y", "x", "Year"], vmb_error),
@@ -67,8 +67,6 @@ def sample_gris_dataset():
         },
         coords={"y": y_coords, "x": x_coords, "Year": years},
     )
-
-    return ds
 
 
 @pytest.fixture
@@ -98,7 +96,7 @@ def sample_ais_dataset():
     dm_data[5] = [[0.3, 0.4, 0.0], [0.5, 0.3, 0.6]]  # 2020.1
     dm_data[6] = [[0.35, 0.45, 0.0], [0.55, 0.35, 0.65]]  # 2020.6
 
-    ds = xr.Dataset(
+    return xr.Dataset(
         {
             "dm": (["time_dec", "y", "x"], dm_data),
             "area": (["y", "x"], area_grid),
@@ -107,8 +105,6 @@ def sample_ais_dataset():
         },
         coords={"time_dec": times, "y": y_coords, "x": x_coords},
     )
-
-    return ds
 
 
 @pytest.fixture

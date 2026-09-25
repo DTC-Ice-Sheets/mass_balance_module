@@ -80,7 +80,7 @@ def test_mass_balance_postprocessing_entrypoint_valid(
 
 
 @pytest.mark.parametrize(
-    "mb_control_path, mb_predict_path, error_string",
+    ("mb_control_path", "mb_predict_path", "error_string"),
     [
         ("invalid_geozarr_path", "valid_geozarr_file", "invalid_geozarr_path"),
         ("valid_geozarr_file", "invalid_geozarr_path", "invalid_geozarr_path"),

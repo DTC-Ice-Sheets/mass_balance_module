@@ -49,7 +49,7 @@ def patch_mb_prediction_entrypoint(simple_zarr_dataset: xr.Dataset) -> Generator
 
 
 @pytest.mark.parametrize(
-    "test_input_source, expects_default_dataset",
+    ("test_input_source", "expects_default_dataset"),
     [
         ("valid_geozarr_file", False),
         ("valid_url", False),

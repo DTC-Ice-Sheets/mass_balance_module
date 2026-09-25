@@ -44,10 +44,7 @@ def main(
         If >1, downsample the output by this factor in both spatial dimensions.
     """
     # TODO Temporarily fallback to placeholder dataset when input geozarr is empty
-    if input_geozarr in ("", "."):  # NOTE: Path("") resolves to (".")
-        dataset = xr.open_zarr(DATASET_URL)
-    else:
-        dataset = xr.open_zarr(input_geozarr)
+    dataset = xr.open_zarr(DATASET_URL) if input_geozarr in ("", ".") else xr.open_zarr(input_geozarr)
     xgb_model = get_xgb_model()
 
     predictions = run_elevation_prediction(
