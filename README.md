@@ -1,11 +1,11 @@
-![example workflow](https://github.com/dtc-ice-sheets/dtc_python_template/actions/workflows/dtc_python_template_test.yml/badge.svg)
-![example workflow](https://github.com/dtc-ice-sheets/dtc_python_template/actions/workflows/dtc_python_template_deploy.yml/badge.svg)
+![example workflow](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_test.yml/badge.svg)
+![example workflow](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_deploy.yml/badge.svg)
 
-# dtc_python_template
+# mass_balance_module
 
 This repository serves as a template for the creation of new DTC Python Packages.
 
-**Please familiarise yourself with the [DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/dtc_python_template/) before proceeding.**
+**Please familiarise yourself with the [DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/mass_balance_module/) before proceeding.**
 
 ## Installation for Use
 
@@ -20,25 +20,25 @@ organisation.
 Then, to download and install the latest version from the DTC Ice Sheets GitHub repository:
 
 ```
-pip install git+https://github.com/dtc-ice-sheets/dtc_python_template.git
+pip install git+https://github.com/dtc-ice-sheets/mass_balance_module.git
 ```
 
 You can then use this package as follows (obviously you will need to edit this section after copying this template):
 
 ```
-python -m dtc_python_template.example_entrypoint_a --integer_a <number_a> --integer_b <number_b>
+python -m mass_balance_module.example_entrypoint_a --integer_a <number_a> --integer_b <number_b>
 ```
 
 or
 
 ```
-python -m dtc_python_template.example_entrypoint_b --integer_a <number_a> --integer_b <number_b>
+python -m mass_balance_module.example_entrypoint_b --integer_a <number_a> --integer_b <number_b>
 ```
 
 For more help, run:
 
 ```
-python -m dtc_python_template.example_entrypoint_a -h
+python -m mass_balance_module.example_entrypoint_a -h
 ```
 
 ## Installation for Development
@@ -46,8 +46,8 @@ python -m dtc_python_template.example_entrypoint_a -h
 To develop this package, please clone the repository:
 
 ```
-git clone https://github.com/dtc-ice-sheets/dtc_python_template.git
-cd dtc_python_template
+git clone https://github.com/dtc-ice-sheets/mass_balance_module.git
+cd mass_balance_module
 ```
 
 This project uses poetry to manage package dependencies and virtual environments.
