@@ -1,0 +1,12 @@
+mass\_balance\_module.mass\_balance\_postprocessing\_entrypoint
+===============================================================
+
+.. automodule:: mass_balance_module.mass_balance_postprocessing_entrypoint
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      main
+   

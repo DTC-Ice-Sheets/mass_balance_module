@@ -1,0 +1,12 @@
+mass\_balance\_module.monitoring
+================================
+
+.. automodule:: mass_balance_module.monitoring
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      setup_logging
+   

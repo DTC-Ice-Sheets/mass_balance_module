@@ -1,0 +1,12 @@
+mass\_balance\_module.mass\_balance\_from\_thickness\_entrypoint
+================================================================
+
+.. automodule:: mass_balance_module.mass_balance_from_thickness_entrypoint
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      main
+   

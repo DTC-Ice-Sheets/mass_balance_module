@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mass_balance_module.helpers &mdash; DTC Ice Sheets: Sea Level Response  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            DTC Ice Sheets: Sea Level Response
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick_start.html">Quick Start</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DTC Ice Sheets: Sea Level Response</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">mass_balance_module.helpers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/mass_balance_module.helpers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-mass_balance_module.helpers">
+<span id="mass-balance-module-helpers"></span><h1>mass_balance_module.helpers<a class="headerlink" href="#module-mass_balance_module.helpers" title="Link to this heading"></a></h1>
+<p>Utility functions for use across mass_balance_module modules.</p>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mass_balance_module.helpers.get_dataset_crs" title="mass_balance_module.helpers.get_dataset_crs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dataset_crs</span></code></a>(dataset)</p></td>
+<td><p>Retrieve the CRS details from the dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mass_balance_module.helpers.path_or_web_url_validator" title="mass_balance_module.helpers.path_or_web_url_validator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">path_or_web_url_validator</span></code></a>(type_, path_or_url)</p></td>
+<td><p>Validate that the provided path is either a valid local path or a web URL.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mass_balance_module.helpers.write_to_geozarr_file" title="mass_balance_module.helpers.write_to_geozarr_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_to_geozarr_file</span></code></a>(data, output_path)</p></td>
+<td><p>Write a GeoZarr-compliant dataset to a file.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py type">
+<dt class="sig sig-object py" id="mass_balance_module.helpers.ZarrType">
+<span class="property"><span class="k"><span class="pre">type</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">mass_balance_module.helpers.</span></span><span class="sig-name descname"><span class="pre">ZarrType</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Annotated[str,</span> <span class="pre">Parameter(validator=(&lt;function</span> <span class="pre">path_or_web_url_validator</span> <span class="pre">at</span> <span class="pre">0x7f11c12b4860&gt;,))]</span></span><a class="headerlink" href="#mass_balance_module.helpers.ZarrType" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_balance_module.helpers.get_dataset_crs">
+<span class="sig-prename descclassname"><span class="pre">mass_balance_module.helpers.</span></span><span class="sig-name descname"><span class="pre">get_dataset_crs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CRS</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#mass_balance_module.helpers.get_dataset_crs" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the CRS details from the dataset.</p>
+<p>This function has been taken from the Data Download Module. It first checks for CRS written with rioxarray. Next,
+it checks the dataset for a grid mapping attribute If the CRS is not found in the grid mapping, it checks the
+dataset attributes for a <cite>_CRS</cite> attribute containing the WKT. If the CRS is still not found, it checks one of the
+data variable’s attributes for a <cite>_CRS</cite> attribute with a <cite>wkt</cite> key (to match the current format of S1 ice velocity
+data on EODS).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>xr.Dataset</em>) – The dataset from which to retrieve the CRS.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The CRS of the dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyproj.CRS | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_balance_module.helpers.path_or_web_url_validator">
+<span class="sig-prename descclassname"><span class="pre">mass_balance_module.helpers.</span></span><span class="sig-name descname"><span class="pre">path_or_web_url_validator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_or_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mass_balance_module.helpers.path_or_web_url_validator" title="Link to this definition"></a></dt>
+<dd><p>Validate that the provided path is either a valid local path or a web URL.</p>
+<p>NOTE: Path(“”) resolves to the current directory (“.”) - which is considered a valid path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>object</em>) – The type of the argument being validated - unused, purely required for cyclopts validator compatibility.</p></li>
+<li><p><strong>path_or_url</strong> (<em>Path</em><em> | </em><em>str</em>) – The candidate path or URL to validate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validated path or URL as a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_balance_module.helpers.write_to_geozarr_file">
+<span class="sig-prename descclassname"><span class="pre">mass_balance_module.helpers.</span></span><span class="sig-name descname"><span class="pre">write_to_geozarr_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mass_balance_module.helpers.write_to_geozarr_file" title="Link to this definition"></a></dt>
+<dd><p>Write a GeoZarr-compliant dataset to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>xr.Dataset</em>) – Geo-Zarr-compliant dataset to be written to file.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) – Path where the GeoZarr file will be saved.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

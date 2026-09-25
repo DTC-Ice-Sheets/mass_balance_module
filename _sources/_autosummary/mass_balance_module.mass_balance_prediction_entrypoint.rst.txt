@@ -1,0 +1,12 @@
+mass\_balance\_module.mass\_balance\_prediction\_entrypoint
+===========================================================
+
+.. automodule:: mass_balance_module.mass_balance_prediction_entrypoint
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      main
+   

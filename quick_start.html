@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; DTC Ice Sheets: Sea Level Response  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="DTC Ice Sheets: Mass Balance Module" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DTC Ice Sheets: Sea Level Response
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#enhance-elevation-data">Enhance Elevation Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enhance-temperature-data">Enhance Temperature Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convert-thickness-to-mass-balance">Convert Thickness to Mass Balance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predict-mass-balance">Predict Mass Balance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-process-predictions">Post-process Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DTC Ice Sheets: Sea Level Response</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quick_start.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<p>The package provides command-line entry points for preparing input data,
+predicting mass balance, and post-processing predictions. Run the examples
+from an environment where <code class="docutils literal notranslate"><span class="pre">mass_balance_module</span></code> is installed. For a Poetry
+checkout, prefix each command with <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span></code>.</p>
+<p>All input <code class="docutils literal notranslate"><span class="pre">.zarr</span></code> paths below may be replaced with paths appropriate for
+your workflow. Where noted, an input GeoZarr can also be an HTTP(S) URL.</p>
+<section id="enhance-elevation-data">
+<h2>Enhance Elevation Data<a class="headerlink" href="#enhance-elevation-data" title="Link to this heading"></a></h2>
+<p>Replace elevation-change, radar-distance, and radar-mode features in a local
+GeoZarr dataset with annual values:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_enhance_elevation_data_entrypoint \</span>
+<span class="go">  --input_geozarr input_features.zarr \</span>
+<span class="go">  --elevation_change_data_path cumulative_elevation_change.zarr \</span>
+<span class="go">  --output_path enhanced_elevation_features.zarr</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">input_geozarr</span></code> and <code class="docutils literal notranslate"><span class="pre">elevation_change_data_path</span></code> must be local Zarr
+paths.</p>
+</section>
+<section id="enhance-temperature-data">
+<h2>Enhance Temperature Data<a class="headerlink" href="#enhance-temperature-data" title="Link to this heading"></a></h2>
+<p>Replace the temperature variable in a GeoZarr dataset with enhanced,
+annual-mean temperature data:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_enhance_temperature_data_entrypoint \</span>
+<span class="go">  --input_geozarr input_features.zarr \</span>
+<span class="go">  --enhanced_temperature_data_path enhanced_temperature.zarr \</span>
+<span class="go">  --output_path enhanced_temperature_features.zarr</span>
+</pre></div>
+</div>
+<p>Both input datasets can be local Zarr paths or HTTP(S) URLs.</p>
+</section>
+<section id="convert-thickness-to-mass-balance">
+<h2>Convert Thickness to Mass Balance<a class="headerlink" href="#convert-thickness-to-mass-balance" title="Link to this heading"></a></h2>
+<p>Convert an ice-thickness dataset to mass balance. The input must provide
+<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">time</span></code> coordinates, CF metadata for the required
+variables, and CRS metadata written with rioxarray:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_from_thickness_entrypoint \</span>
+<span class="go">  input_thickness.zarr output_mass_balance.zarr</span>
+</pre></div>
+</div>
+<p>The default output is prepared for SELREM. To preserve gridded output, pass
+<code class="docutils literal notranslate"><span class="pre">--no-prep-for-selrem</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_from_thickness_entrypoint \</span>
+<span class="go">  input_thickness.zarr output_mass_balance.zarr --no-prep-for-selrem</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--coarsen-factor</span> <span class="pre">&lt;integer&gt;</span></code> with the default SELREM preparation to
+spatially coarsen the result while conserving mass.</p>
+</section>
+<section id="predict-mass-balance">
+<h2>Predict Mass Balance<a class="headerlink" href="#predict-mass-balance" title="Link to this heading"></a></h2>
+<p>Run the elevation-based mass balance prediction:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_prediction_entrypoint \</span>
+<span class="go">  --input_geozarr input_features.zarr \</span>
+<span class="go">  --output_path predicted_mass_balance.zarr</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">input_geozarr</span></code> may be a local Zarr path or an HTTP(S) URL. Optional model
+inputs are <code class="docutils literal notranslate"><span class="pre">--ice_velocity_factor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--land_surface_temperature_offset</span></code>, and <code class="docutils literal notranslate"><span class="pre">--radar_elevation_factor</span></code>.
+Use <code class="docutils literal notranslate"><span class="pre">--downsample_factor</span> <span class="pre">&lt;integer&gt;</span></code> to downsample predictions spatially
+before mass balance is derived.</p>
+</section>
+<section id="post-process-predictions">
+<h2>Post-process Predictions<a class="headerlink" href="#post-process-predictions" title="Link to this heading"></a></h2>
+<p>Compare control and predicted mass-balance datasets and write the results as
+JSON:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_postprocessing_entrypoint \</span>
+<span class="go">  --mass_balance_control_path control_mass_balance.zarr \</span>
+<span class="go">  --mass_balance_predicted_path predicted_mass_balance.zarr \</span>
+<span class="go">  --output_json_path postprocessed_mass_balance.json</span>
+</pre></div>
+</div>
+<p>Both mass-balance inputs may be local Zarr paths or HTTP(S) URLs.</p>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<p>Every entry point provides argument-level help. For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_prediction_entrypoint --help</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="DTC Ice Sheets: Mass Balance Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
