@@ -6,8 +6,15 @@
 DTC Ice Sheets: Mass Balance Module
 ====================================
 
+TODO - add introduction and overview of the DTC Ice Sheets: Mass Balance Module.
+
 .. toctree::
    :maxdepth: 2
 
    quick_start
 
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference:
+
+   API <api.rst>
