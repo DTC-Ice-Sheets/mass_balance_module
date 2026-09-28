@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "mass_balance_module"
-version = "0.0.69"
+version = "0.0.70"
 description = "DTC-IS module to fetch mass balance data and project mass balance predictions into the future."
 authors = ["DTC-IS consortium <support@dtc-ice-sheets.org>"]
 license = "MIT"
