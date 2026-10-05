@@ -5,7 +5,7 @@
 
 This repository serves as a template for the creation of new DTC Python Packages.
 
-**Please familiarise yourself with the [DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/mass_balance_module/) before proceeding.**
+**Please familiarise yourself with the [DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/dtc_python_template/) before proceeding.**
 
 ## Installation for Use
 

@@ -1,6 +1,6 @@
 # When a version tag is pushed, deploy using that tag.
-# When adapting this template for your own use, please rename "sea_level_response" to your package name.
-name: sea_level_response_deploy
+# When adapting this template for your own use, please rename "mass_balance_module" to your package name.
+name: mass_balance_module_deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     if: github.actor != 'ew-version-bumper[bot]'
     uses: ./.github/workflows/generic_build_container_if_needed.yml
     with:
-      package_name: sea_level_response
+      package_name: mass_balance_module
     secrets: inherit
 
   deploy:
@@ -21,5 +21,5 @@ jobs:
     needs: build_container_if_needed
     uses: ./.github/workflows/generic_deploy.yml
     with:
-      package_name: sea_level_response
+      package_name: mass_balance_module
     secrets: inherit
