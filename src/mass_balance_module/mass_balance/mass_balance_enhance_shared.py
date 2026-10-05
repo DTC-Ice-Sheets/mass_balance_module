@@ -83,6 +83,8 @@ def interpolate_to_new_coords(
     ------
     ValueError
         If no suitable x/y coordinate pair is found in the input data.
+    NotImplementedError
+        If the input data is not 3D (time, y, x), as only 3D data is currently supported for interpolation.
     """
     if (input_crs is None) != (output_crs is None):
         raise ValueError("Must provide either both input_crs and output_crs, or neither.")
