@@ -78,6 +78,11 @@ def interpolate_to_new_coords(
     xr.DataArray
         The new data, interpolated to the new coordinates.
         Will have the same dimensions as the input data, but with spatial dimensions replaced with new_xs and new_ys.
+
+    Raises
+    ------
+    ValueError
+        If no suitable x/y coordinate pair is found in the input data.
     """
     if (input_crs is None) != (output_crs is None):
         raise ValueError("Must provide either both input_crs and output_crs, or neither.")
