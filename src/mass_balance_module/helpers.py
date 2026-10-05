@@ -140,6 +140,11 @@ def path_or_web_url_validator(type_: object, path_or_url: Path | str) -> str:  #
     -------
     str
         The validated path or URL as a string.
+
+    Raises
+    ------
+    ValueError
+        If the provided path is neither a valid local path nor a web URL.
     """
     if not Path(path_or_url).exists() and not str(path_or_url).startswith(("http://", "https://", "s3://")):
         raise ValueError(f"The provided path '{path_or_url}' is neither a valid local path nor a web URL.")

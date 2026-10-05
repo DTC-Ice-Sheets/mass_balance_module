@@ -29,7 +29,7 @@ def _find_var_by_cf_name(ds: xr.Dataset, cf_names: list[str]) -> str | None:
 
     Returns
     -------
-    str or None
+    str | None
         The name of the first variable found with a matching CF attribute, or None if no match is found.
     """
     for var_name in ds.data_vars:
@@ -54,7 +54,7 @@ def derive_mass_flux_from_thickness(
         Dataset containing the ice thickness variable and optionally grounded fraction.
     thickness_var : str
         Name of the ice thickness variable.
-    grounded_frac_var : str or None
+    grounded_frac_var : str | None
         Name of the grounded ice fraction variable. If not provided, the full ice column is treated as grounded.
 
     Returns
