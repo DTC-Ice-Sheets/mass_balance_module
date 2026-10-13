@@ -64,6 +64,20 @@ def simple_zarr_dataset() -> xr.Dataset:
 
 
 @pytest.fixture
+def gridded_mass_balance_data_array() -> xr.DataArray:
+    """Provide a small mass-balance array with the dimensions expected by the GeoZarr writer."""
+    return xr.DataArray(
+        np.ones((2, 3, 4), dtype=np.float64),
+        dims=("time", "y", "x"),
+        coords={
+            "time": np.array(["2000-01-01", "2000-01-02"], dtype="datetime64[s]"),
+            "y": [0.0, 1.0, 2.0],
+            "x": [0.0, 1.0, 2.0, 3.0],
+        },
+    )
+
+
+@pytest.fixture
 def empty_str() -> str:
     """Provide an empty string for testing."""
     return ""

@@ -40,8 +40,6 @@ commitizen = "^4.11.6"
 pydoclint = "^0.8.3"
 fsspec = "^2026.2.0"
 aiohttp = "^3.13.3"
-data_converter = { git = "https://github.com/DTC-Ice-Sheets/data_converter.git", tag = "0.0.48" }
-sea_level_response = { git = "https://github.com/DTC-Ice-Sheets/sea_level_response.git", branch = "main" }
 
 [tool.poetry.group.deployment.dependencies]
 dtc-wrapper = { git = "https://github.com/DTC-Ice-Sheets/dtc_wrapper.git", tag = "0.0.41" }
