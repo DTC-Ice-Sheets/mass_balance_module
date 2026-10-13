@@ -25,8 +25,6 @@ xgboost = "^3.2.0"
 cloudpickle = "^3.1.2"
 requests = "^2.32.5"
 rioxarray = ">=0.15.0,<0.22.0"
-data_converter = { git = "https://github.com/DTC-Ice-Sheets/data_converter.git", tag = "0.0.48" }
-sea_level_response = { git = "https://github.com/DTC-Ice-Sheets/sea_level_response.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
@@ -40,6 +38,13 @@ sphinx-rtd-theme = "^3.0.2"
 sphinx-copybutton = "^0.5.2"
 commitizen = "^4.11.6"
 pydoclint = "^0.8.3"
+fsspec = "^2026.2.0"
+aiohttp = "^3.13.3"
+data_converter = { git = "https://github.com/DTC-Ice-Sheets/data_converter.git", tag = "0.0.48" }
+sea_level_response = { git = "https://github.com/DTC-Ice-Sheets/sea_level_response.git", branch = "main" }
+
+[tool.poetry.group.deployment.dependencies]
+dtc-wrapper = { git = "https://github.com/DTC-Ice-Sheets/dtc_wrapper.git", tag = "0.0.41" }
 
 [tool.ruff]
 line-length = 120
@@ -49,33 +54,33 @@ target-version = "py312"
 preview = true
 select = [
     "T20", # Disallow print statements
-    "A",    # Ambiguity
-    "ANN",  # Annotations
-    "B",    # Bad practices
-    "C90",    # Complexity
-    "D",    # Documentation
-    "E",    # Errors
-    "F",    # Pyflakes (e.g. unused imports and vars)
-    "G",    # logging formatting
-    "I",    # Imports
-    "N",    # Naming
-    "Q",    # Quoting
-    "W",    # Warnings
-    "PT",   # pytest-style
-    "SIM",  # flake8-simplify
-    "C4",   # flake8-comprehensions
-    "ARG",  # flake8-unused-arguments
-    "PIE",  # flake8-pie
-    "RUF",  # Ruff-specific rules
-    "BLE",  # Blind except
-    "RET",  # Return statements
-    "PTH",  # Use pathlib
-    "PD",   # Pandas
+    "A",   # Ambiguity
+    "ANN", # Annotations
+    "B",   # Bad practices
+    "C90", # Complexity
+    "D",   # Documentation
+    "E",   # Errors
+    "F",   # Pyflakes (e.g. unused imports and vars)
+    "G",   # logging formatting
+    "I",   # Imports
+    "N",   # Naming
+    "Q",   # Quoting
+    "W",   # Warnings
+    "PT",  # pytest-style
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
+    "ARG", # flake8-unused-arguments
+    "PIE", # flake8-pie
+    "RUF", # Ruff-specific rules
+    "BLE", # Blind except
+    "RET", # Return statements
+    "PTH", # Use pathlib
+    "PD",  # Pandas
 ]
 
 [tool.pydoclint]
-style='numpy'
-check_style_mismatch="true"
+style = 'numpy'
+check_style_mismatch = "true"
 
 mccabe = { max-complexity = 10 }
 
