@@ -406,10 +406,10 @@ def plot_mean_timeseries_change_gris_ais_from_csv(gris_csv_path: str, ais_csv_pa
 
     Parameters
     ----------
-    gris_netcdf_path : str
-        Path to the GrIS NetCDF file.
-    ais_netcdf_path : str
-        Path to the AIS NetCDF file.
+    gris_csv_path : str
+        Path to the GrIS CSV file.
+    ais_csv_path : str
+        Path to the AIS CSV file.
     """
     # --- GrIS ---
     df_gris = pd.read_csv(gris_csv_path)
