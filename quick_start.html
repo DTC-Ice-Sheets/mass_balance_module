@@ -127,14 +127,8 @@ variables, and CRS metadata written with rioxarray:</p>
 <span class="go">  input_thickness.zarr output_mass_balance.zarr</span>
 </pre></div>
 </div>
-<p>The default output is prepared for SELREM. To preserve gridded output, pass
-<code class="docutils literal notranslate"><span class="pre">--no-prep-for-selrem</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m mass_balance_module.mass_balance_from_thickness_entrypoint \</span>
-<span class="go">  input_thickness.zarr output_mass_balance.zarr --no-prep-for-selrem</span>
-</pre></div>
-</div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">--coarsen-factor</span> <span class="pre">&lt;integer&gt;</span></code> with the default SELREM preparation to
-spatially coarsen the result while conserving mass.</p>
+<p>The output is a gridded <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">y,</span> <span class="pre">x)</span></code> mass-balance dataset in the input
+coordinate system.</p>
 </section>
 <section id="predict-mass-balance">
 <h2>Predict Mass Balance<a class="headerlink" href="#predict-mass-balance" title="Link to this heading"></a></h2>

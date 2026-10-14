@@ -58,6 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="mass_balance_module.mass_balance_enhance_temperature_data_entrypoint.html">mass_balance_module.mass_balance_enhance_temperature_data_entrypoint</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">mass_balance_module.mass_balance_from_thickness_entrypoint</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr"><code class="docutils literal notranslate"><span class="pre">write_mass_balance_to_geozarr()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="mass_balance_module.mass_balance_postprocessing_entrypoint.html">mass_balance_module.mass_balance_postprocessing_entrypoint</a></li>
@@ -99,20 +100,22 @@
 <span id="mass-balance-module-mass-balance-from-thickness-entrypoint"></span><h1>mass_balance_module.mass_balance_from_thickness_entrypoint<a class="headerlink" href="#module-mass_balance_module.mass_balance_from_thickness_entrypoint" title="Link to this heading"></a></h1>
 <p>Command line entry point for converting ice thickness to mass balance.</p>
 <p>Implemented for ISMIP6 data but designed to be generalisable to other datasets with the appropriate CF metadata.</p>
-<p>By default outputs a gridded (time, y, x) mass balance zarr in kg/cell/yr, preserving the input coordinate system.
-Pass –prep-for-selrem to also flatten the result to the (time, point) schema expected by the SELREM entrypoint.</p>
+<p>By default outputs a gridded (time, y, x) mass balance zarr in kg/cell/yr, preserving the input coordinate system.</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.main" title="mass_balance_module.mass_balance_from_thickness_entrypoint.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(input_zarr, output_path[, ...])</p></td>
-<td><p>Convert ice thickness to mass balance and optionally prepare for SELREM.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.main" title="mass_balance_module.mass_balance_from_thickness_entrypoint.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>(input_zarr, output_path)</p></td>
+<td><p>Convert ice thickness to gridded mass balance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr" title="mass_balance_module.mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_mass_balance_to_geozarr</span></code></a>(mb_ds, output_path)</p></td>
+<td><p>Write the computed mass balance to a GeoZarr file with appropriate metadata.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="mass_balance_module.mass_balance_from_thickness_entrypoint.main">
-<span class="sig-prename descclassname"><span class="pre">mass_balance_module.mass_balance_from_thickness_entrypoint.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_zarr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prep_for_selrem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coarsen_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.main" title="Link to this definition"></a></dt>
-<dd><p>Convert ice thickness to mass balance and optionally prepare for SELREM.</p>
+<span class="sig-prename descclassname"><span class="pre">mass_balance_module.mass_balance_from_thickness_entrypoint.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_zarr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mass_balance_module.helpers.html#mass_balance_module.helpers.ZarrType" title="mass_balance_module.helpers.ZarrType"><span class="pre">ZarrType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.main" title="Link to this definition"></a></dt>
+<dd><p>Convert ice thickness to gridded mass balance.</p>
 <p>Input dataset should have a CRS written with rioxarray and its variables should be annotated with
 standard_name/long_name attributes so that ice thickness and grounded fraction (if present) can be auto-detected. If
 the dataset lacks a ‘cell_area’ variable, cell area will be inferred from coordinate spacing if possible (regular
@@ -120,14 +123,26 @@ the dataset lacks a ‘cell_area’ variable, cell area will be inferred from co
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_zarr</strong> (<em>Path</em>) – Input gridded zarr with x, y, and time coordinates, CF-attributed ice thickness (and optionally grounded
+<li><p><strong>input_zarr</strong> (<a class="reference internal" href="mass_balance_module.helpers.html#mass_balance_module.helpers.ZarrType" title="mass_balance_module.helpers.ZarrType"><em>ZarrType</em></a>) – Input gridded zarr with x, y, and time coordinates, CF-attributed ice thickness (and optionally grounded
 fraction) variables, and CRS metadata written by rioxarray.</p></li>
 <li><p><strong>output_path</strong> (<em>Path</em>) – Where to write the output zarr.</p></li>
-<li><p><strong>prep_for_selrem</strong> (<em>bool</em>) – If True, additionally flatten the gridded output to the (time, point) schema expected by the SELREM entrypoint
-— including CRS reprojection to geographic coordinates and annual resampling if needed. Default True (
-SELREM-ready output).</p></li>
-<li><p><strong>coarsen_factor</strong> (<em>int</em>) – Spatial coarsening factor applied when –prep-for-selrem is set. Mass is summed (mass-conserving);
-coordinates are averaged. Default 1.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mass_balance_module.mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr">
+<span class="sig-prename descclassname"><span class="pre">mass_balance_module.mass_balance_from_thickness_entrypoint.</span></span><span class="sig-name descname"><span class="pre">write_mass_balance_to_geozarr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mb_ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_chunk_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1024MB'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mass_balance_module.mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr" title="Link to this definition"></a></dt>
+<dd><p>Write the computed mass balance to a GeoZarr file with appropriate metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mb_ds</strong> (<em>xr.Dataset</em>) – The computed mass balance dataset.</p></li>
+<li><p><strong>output_path</strong> (<em>Path</em>) – The path where the output GeoZarr file should be written.</p></li>
+<li><p><strong>target_chunk_size</strong> (<em>str</em>) – The target chunk size for the output GeoZarr file, by default “1024MB”.
+This is set on the high side to avoid lots of file downloading in the cloud.
+The xarray documentation recommends setting this value 10-100MB if you are working locally.</p></li>
 </ul>
 </dd>
 </dl>

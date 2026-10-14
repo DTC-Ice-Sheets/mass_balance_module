@@ -9,4 +9,5 @@ mass\_balance\_module.mass\_balance\_from\_thickness\_entrypoint
    .. autosummary::
    
       main
+      write_mass_balance_to_geozarr
    
