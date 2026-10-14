@@ -83,14 +83,6 @@ def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path, target_c
         }
     )
 
-    # provide the _ARRAY_DIMENSIONS attribute for CF compliance
-    mb_ds.attrs["_ARRAY_DIMENSIONS"] = (
-        "time",
-        "spatial_ref",
-        "x",
-        "y",
-    )
-
     # chunk the dataset to the target chunk size - this is propagated to the dask[array] backend in the to_zarr call.
     mb_ds = mb_ds.chunk(chunks=target_chunk_size)
 

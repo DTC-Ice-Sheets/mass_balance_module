@@ -4,8 +4,10 @@ import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import dask.array
 import numpy as np
 import pyproj
+import pytest
 import rioxarray  # noqa: F401
 import xarray as xr
 import zarr
@@ -94,3 +96,46 @@ def test_write_mass_balance_to_geozarr_writes_cf_data_and_crs(
     output_group = zarr.open_group(output_path, mode="r")
     expected_fill_value = mass_balance_from_thickness_entrypoint.helpers.CF_FLOAT64_FILL_VALUE
     assert output_group[variable_name].fill_value == expected_fill_value
+
+
+@pytest.mark.parametrize(
+    ("target_chunk_size", "max_chunk_bytes", "expected_chunks", "expected_nchunks"),
+    [
+        ("1MB", 10**6, (2, 200, 200), 128),
+        ("10MB", 10 * 10**6, (4, 500, 500), 9),
+        ("50MB", 50 * 10**6, (4, 1200, 1200), 4),
+    ],
+)
+def test_write_mass_balance_to_geozarr_respects_target_chunk_size(
+    tmp_path: Path,
+    target_chunk_size: str,
+    max_chunk_bytes: int,
+    expected_chunks: tuple[int, int, int],
+    expected_nchunks: int,
+) -> None:
+    output_path = tmp_path / "output.zarr"
+    variable_name = mass_balance_from_thickness_entrypoint.MASS_BALANCE_COL_NAME
+    n_times, n_y, n_x = 4, 1500, 1500
+
+    # 72MB float64 array, larger than every target chunk size (dask parses "MB" with decimal units)
+    mass_balance = dask.array.ones((n_times, n_y, n_x), dtype=np.float64, chunks=(1, 100, 100))
+    assert mass_balance.nbytes > max_chunk_bytes
+    mb_ds = xr.Dataset(
+        {variable_name: (("time", "y", "x"), mass_balance)},
+        coords={
+            "time": np.arange(n_times).astype("datetime64[Y]").astype("datetime64[s]"),
+            "y": np.arange(n_y, dtype=np.float64),
+            "x": np.arange(n_x, dtype=np.float64),
+        },
+    ).rio.write_crs("EPSG:4326")
+
+    mass_balance_from_thickness_entrypoint.write_mass_balance_to_geozarr(
+        mb_ds, output_path, target_chunk_size=target_chunk_size
+    )
+
+    written_array = zarr.open_group(output_path, mode="r")[variable_name]
+    assert written_array.shape == (n_times, n_y, n_x)
+    assert written_array.chunks == expected_chunks
+    assert written_array.nchunks == expected_nchunks
+    assert written_array.nchunks_initialized == expected_nchunks
+    assert np.prod(written_array.chunks) * written_array.dtype.itemsize <= max_chunk_bytes
