@@ -52,16 +52,8 @@ variables, and CRS metadata written with rioxarray:
    python -m mass_balance_module.mass_balance_from_thickness_entrypoint \
      input_thickness.zarr output_mass_balance.zarr
 
-The default output is prepared for SELREM. To preserve gridded output, pass
-``--no-prep-for-selrem``:
-
-.. code-block:: console
-
-   python -m mass_balance_module.mass_balance_from_thickness_entrypoint \
-     input_thickness.zarr output_mass_balance.zarr --no-prep-for-selrem
-
-Use ``--coarsen-factor <integer>`` with the default SELREM preparation to
-spatially coarsen the result while conserving mass.
+The output is a gridded ``(time, y, x)`` mass-balance dataset in the input
+coordinate system.
 
 Predict Mass Balance
 --------------------
