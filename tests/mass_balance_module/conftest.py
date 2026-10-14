@@ -7,21 +7,11 @@ import pandas as pd
 import pytest
 import xarray as xr
 
+from mass_balance_module import mass_balance_from_thickness_entrypoint
+
 
 @pytest.fixture
 def valid_geozarr_file(tmp_path: Path) -> Path:
-    """Create a dummy GeoZarr store directory for testing.
-
-    Parameters
-    ----------
-    tmp_path : Path
-        Temporary path provided by pytest.
-
-    Returns
-    -------
-    Path
-        Path to the dummy GeoZarr store directory.
-    """
     dummy_file = tmp_path / "dummy.zarr"
     dummy_file.mkdir()  # Create the directory to ensure it exists
     return dummy_file
@@ -29,31 +19,21 @@ def valid_geozarr_file(tmp_path: Path) -> Path:
 
 @pytest.fixture
 def invalid_geozarr_path(tmp_path: Path) -> Path:
-    """Provide a path to a non-existent GeoZarr store directory for testing.
-
-    Parameters
-    ----------
-    tmp_path : Path
-        Temporary path provided by pytest.
-    """
     return tmp_path / "non_existent_file.zarr"
 
 
 @pytest.fixture
 def valid_url() -> str:
-    """Provide a valid URL for testing."""
     return "https://example.com/valid.zarr"
 
 
 @pytest.fixture
 def invalid_url() -> str:
-    """Provide an invalid URL for testing."""
     return "invalid_url/doesnt/start/with/http/or/https"
 
 
 @pytest.fixture
 def invalid_path() -> str:
-    """Provide an invalid path for testing."""
     return "invalid_path/doesnt/exist"
 
 
@@ -70,7 +50,18 @@ def gridded_mass_balance_data_array() -> xr.DataArray:
         np.ones((2, 3, 4), dtype=np.float64),
         dims=("time", "y", "x"),
         coords={
-            "time": np.array(["2000-01-01", "2000-01-02"], dtype="datetime64[s]"),
+            "time": (
+                "time",
+                np.array([1000, 1001], dtype="datetime64[s]"),
+                {
+                    "standard_name": "time",
+                    "long_name": "time",
+                    "axis": "T",
+                    "bounds": "time_bnds",
+                    "units": "seconds since 1970-01-01 00:00:00",
+                    "calendar": "standard",
+                },
+            ),
             "y": [0.0, 1.0, 2.0],
             "x": [0.0, 1.0, 2.0, 3.0],
         },
@@ -78,14 +69,18 @@ def gridded_mass_balance_data_array() -> xr.DataArray:
 
 
 @pytest.fixture
+def gridded_mass_balance_dataset(gridded_mass_balance_data_array) -> xr.Dataset:
+    variable_name = mass_balance_from_thickness_entrypoint.MASS_BALANCE_COL_NAME
+    return gridded_mass_balance_data_array.to_dataset(name=variable_name).rio.write_crs("EPSG:4326")
+
+
+@pytest.fixture
 def empty_str() -> str:
-    """Provide an empty string for testing."""
     return ""
 
 
 @pytest.fixture
 def empty_path() -> Path:
-    """Provide an empty Path for testing."""
     return Path()
 
 

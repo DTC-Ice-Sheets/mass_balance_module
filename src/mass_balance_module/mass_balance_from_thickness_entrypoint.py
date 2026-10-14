@@ -14,7 +14,7 @@ import xarray as xr
 
 from mass_balance_module import helpers
 from mass_balance_module.config import MASS_BALANCE_COL_NAME
-from mass_balance_module.helpers import ZarrType, get_dataset_crs
+from mass_balance_module.helpers import ZarrType, get_dataset_crs, prepare_time_data_array
 from mass_balance_module.mass_balance.mass_balance_from_thickness import compute_mass_balance
 
 logger = logging.getLogger(__name__)
@@ -56,7 +56,7 @@ def main(
     write_mass_balance_to_geozarr(mb_ds, output_path)
 
 
-def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path) -> None:
+def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path, target_chunk_size: str = "1024MB") -> None:
     """
     Write the computed mass balance to a GeoZarr file with appropriate metadata.
 
@@ -66,20 +66,12 @@ def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path) -> None:
         The computed mass balance dataset.
     output_path : Path
         The path where the output GeoZarr file should be written.
+    target_chunk_size : str
+        The target chunk size for the output GeoZarr file, by default "1024MB".
+        This is set on the high side to avoid lots of file downloading in the cloud.
+        The xarray documentation recommends setting this value 10-100MB if you are working locally.
     """
-    # update the time coordinate to be in float seconds since epoch - in line with CF conventions for time encoding
-    mb_ds["time"] = helpers.datetime64_to_float_seconds(mb_ds["time"])
-    mb_ds["time"] = mb_ds["time"].assign_attrs(
-        {
-            "standard_name": "time",
-            "long_name": "time",
-            "axis": "T",
-            "bounds": "time_bnds",
-        }
-    )
-    # units and calendar are specified in the encoding during the to_zarr write - remove any existing attributes
-    for key in ("units", "calendar"):
-        mb_ds["time"].attrs.pop(key, None)
+    mb_ds["time"] = prepare_time_data_array(mb_ds["time"])
 
     # set up the mass balance variable attributes - in line with CF conventions
     mb_ds[MASS_BALANCE_COL_NAME] = mb_ds[MASS_BALANCE_COL_NAME].assign_attrs(
@@ -90,8 +82,17 @@ def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path) -> None:
             "grid_mapping": "spatial_ref",
         }
     )
-    # Preserve the root-level coordinate listing expected by existing GeoZarr consumers.
-    mb_ds.attrs["_ARRAY_DIMENSIONS"] = ["time", "spatial_ref", "x", "y"]
+
+    # provide the _ARRAY_DIMENSIONS attribute for CF compliance
+    mb_ds.attrs["_ARRAY_DIMENSIONS"] = (
+        "time",
+        "spatial_ref",
+        "x",
+        "y",
+    )
+
+    # chunk the dataset to the target chunk size - this is propagated to the dask[array] backend in the to_zarr call.
+    mb_ds = mb_ds.chunk(chunks=target_chunk_size)
 
     mb_ds.to_zarr(
         output_path,
@@ -99,13 +100,12 @@ def write_mass_balance_to_geozarr(mb_ds: xr.Dataset, output_path: Path) -> None:
         zarr_format=2,
         encoding={
             "time": {
-                "units": "seconds since 1970-01-01 00:00:00",
-                "calendar": "standard",
+                "units": mb_ds["time"].attrs.pop("units", "seconds since 1970-01-01 00:00:00"),
+                "calendar": mb_ds["time"].attrs.pop("calendar", "standard"),
                 "dtype": "datetime64[s]",
             },
             MASS_BALANCE_COL_NAME: {
                 "_FillValue": helpers.CF_FLOAT64_FILL_VALUE,
-                "chunks": helpers.calculate_chunk_shape(mb_ds[MASS_BALANCE_COL_NAME].shape),
             },
         },
         consolidated=True,

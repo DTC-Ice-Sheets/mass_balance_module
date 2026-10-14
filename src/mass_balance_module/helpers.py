@@ -124,25 +124,20 @@ def path_or_web_url_validator(type_: object, path_or_url: Path | str) -> str:  #
     return str(path_or_url)
 
 
-def datetime64_to_float_seconds(dt64_array: xr.DataArray) -> xr.DataArray:
-    """Convert datetime64 data to seconds-resolution datetime64 values."""
-    logger.info("Converting type %s to seconds since epoch", dt64_array.dtype)
-    return dt64_array.astype("datetime64[s]")
-
-
-def calculate_chunk_shape(shape: tuple[int, int, int]) -> tuple[int, int, int]:
-    """Keep full spatial slices and fit as many time steps as possible in a 100 MiB chunk."""
-    if len(shape) != 3:
-        raise ValueError("Expected mass-balance dimensions in (time, y, x) order")
-
-    max_chunk_bytes = DEFAULT_ZARR_CHUNK_SIZE_MB * BYTES_PER_MIB
-    spatial_bytes = shape[1] * shape[2] * 8
-
-    if spatial_bytes > max_chunk_bytes:
-        raise ValueError("One full spatial slice exceeds the maximum chunk size")
-
-    time_chunk = min(shape[0], int(max_chunk_bytes // spatial_bytes))
-    return (time_chunk, shape[1], shape[2])
+def prepare_time_data_array(time_data_array: xr.DataArray) -> xr.DataArray:
+    """Convert a time coordinate to seconds and apply its CF metadata."""
+    logger.info("Converting type %s to seconds since epoch", time_data_array.dtype)
+    time_data_array = time_data_array.astype("datetime64[s]")
+    return time_data_array.assign_attrs(
+        {
+            "standard_name": "time",
+            "long_name": "time",
+            "axis": "T",
+            "bounds": "time_bnds",
+            "units": "seconds since 1970-01-01 00:00:00",
+            "calendar": "standard",
+        }
+    )
 
 
 # alias for use in cyclopts Parameter definitions
