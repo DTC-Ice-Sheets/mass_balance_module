@@ -8,7 +8,7 @@ import dask.array
 import numpy as np
 import pyproj
 import pytest
-import rioxarray  # noqa: F401
+import rioxarray  # ruff: ignore[unused-import]
 import xarray as xr
 import zarr
 

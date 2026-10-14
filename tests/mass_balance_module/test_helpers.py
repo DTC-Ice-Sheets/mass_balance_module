@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-import rioxarray  # noqa: F401
+import rioxarray  # ruff: ignore[unused-import]
 import xarray as xr
 
 from mass_balance_module.helpers import (
