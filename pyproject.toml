@@ -38,7 +38,7 @@ sphinx = "^9.1.0"
 sphinx-rtd-theme = "^3.0.2"
 sphinx-copybutton = "^0.5.2"
 commitizen = "^4.11.6"
-pydoclint = "^0.8.3"
+pydoclint = ">=0.8.3,<0.12.0"
 fsspec = "^2026.2.0"
 aiohttp = "^3.13.3"
 
