@@ -3,9 +3,21 @@
 
 # mass_balance_module
 
-This repository serves as a template for the creation of new DTC Python Packages.
+The **Mass Balance Module** of the ESA Digital Twin Component for Ice Sheets (DTC Ice Sheets, DTC-IS) estimates the
+mass balance of the Greenland Ice Sheet from Earth Observation data. Antarctica will be added in a future update.
 
-**Please familiarise yourself with the [DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/dtc_python_template/) before proceeding.**
+The module follows the calibrated radar-altimetry method of
+[Simonsen et al. (2021)](https://doi.org/10.1029/2020GL091216). A pre-trained XGBoost model converts C3S-based
+radar-altimetry surface elevation change, ice velocity and land surface temperature into gridded mass balance
+(Gt/yr). The module supports *what-if* scenarios by perturbing these input forcings, and its output drives the
+Sea-Level Response EMulator (SELREM) in DTC-IS Use Case 2 (EU sea-level response fingerprint). It can also convert
+modelled ice thickness, such as ISMIP6 projections, into mass balance.
+
+📖 **Documentation:** <https://dtc-ice-sheets.github.io/mass_balance_module/> covers the scientific background,
+workflow, inputs/outputs, validation and the full API.
+
+Developers: please familiarise yourself with the
+[DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/dtc_python_template/) before contributing.
 
 ## Installation for Use
 
@@ -23,22 +35,30 @@ Then, to download and install the latest version from the DTC Ice Sheets GitHub 
 pip install git+https://github.com/dtc-ice-sheets/mass_balance_module.git
 ```
 
-You can then use this package as follows (obviously you will need to edit this section after copying this template):
+The package provides five command-line entry points:
+
+| Entry point | Purpose |
+|---|---|
+| `mass_balance_enhance_elevation_data_entrypoint` | Replace the radar-altimetry features with annual elevation change |
+| `mass_balance_enhance_temperature_data_entrypoint` | Replace the land surface temperature feature (e.g. with projections) |
+| `mass_balance_prediction_entrypoint` | Run the XGBoost model, with optional what-if perturbations, and derive mass balance |
+| `mass_balance_postprocessing_entrypoint` | Compare a predicted run with a control run and write a JSON summary |
+| `mass_balance_from_thickness_entrypoint` | Convert ice thickness (e.g. ISMIP6) to mass balance, by default ready for SELREM |
+
+For example, to predict mass balance with a 10% increase in ice velocity:
 
 ```
-python -m mass_balance_module.example_entrypoint_a --integer_a <number_a> --integer_b <number_b>
+python -m mass_balance_module.mass_balance_prediction_entrypoint \
+  --input_geozarr input_features.zarr \
+  --output_path predicted_mass_balance.zarr \
+  --ice_velocity_factor 1.1
 ```
 
-or
+See the [Quick Start](https://dtc-ice-sheets.github.io/mass_balance_module/quick_start.html) for examples of every
+entry point. For help on any entry point, run it with `--help`, for example:
 
 ```
-python -m mass_balance_module.example_entrypoint_b --integer_a <number_a> --integer_b <number_b>
-```
-
-For more help, run:
-
-```
-python -m mass_balance_module.example_entrypoint_a -h
+python -m mass_balance_module.mass_balance_prediction_entrypoint --help
 ```
 
 ## Installation for Development

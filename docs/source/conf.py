@@ -11,7 +11,7 @@ import sys
 
 src_root = pathlib.Path("../../src").resolve()
 sys.path.insert(0, str(src_root))
-project = "DTC Ice Sheets: Sea Level Response"
+project = "DTC Ice Sheets: Mass Balance Module"
 company_copyright = "2026, Earthwave Ltd."
 author = "Earthwave Ltd."
 
