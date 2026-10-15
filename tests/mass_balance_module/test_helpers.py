@@ -3,14 +3,16 @@
 from collections.abc import Callable
 from pathlib import Path
 
+import numpy as np
 import pytest
+import rioxarray  # ruff: ignore[unused-import]
 import xarray as xr
 
 from mass_balance_module.helpers import (
     _determine_spatial_coord_names,
     get_dataset_crs,
     path_or_web_url_validator,
-    write_to_geozarr_file,
+    prepare_time_data_array,
 )
 
 
@@ -52,21 +54,6 @@ def test_determine_spatial_coord_names(coords, expected):
     assert _determine_spatial_coord_names(ds) == expected
 
 
-def test_write_to_geozarr_file(tmp_path):
-    ds = xr.Dataset(
-        data_vars={"data": (["x", "y"], [[1, 2], [3, 4]])},
-        coords={"x": [0, 1], "y": [0, 1]},
-    )
-    ds = ds.rio.write_crs("EPSG:4326")
-    ds["time"] = xr.DataArray([1, 2], dims="time")
-    ds["time"].attrs = {"units": "days since 2000-01-01", "calendar": "standard"}
-
-    output_path = tmp_path / "test_output.zarr"
-    write_to_geozarr_file(ds, output_path)
-
-    assert output_path.exists()
-
-
 @pytest.mark.parametrize(
     "input_factory",
     [
@@ -105,3 +92,15 @@ def test_path_or_web_url_validator_invalid_inputs(
 
     with pytest.raises(ValueError, match="neither a valid local path nor a web URL"):
         path_or_web_url_validator(type_=object, path_or_url=candidate)
+
+
+def test_prepare_time_data_array_converts_to_seconds_and_sets_cf_metadata(
+    gridded_mass_balance_data_array: xr.DataArray,
+) -> None:
+    time = gridded_mass_balance_data_array["time"]
+    result = prepare_time_data_array(time)
+    assert result.dtype == np.dtype("datetime64[s]")
+    np.testing.assert_array_equal(result.values, time.values.astype("datetime64[s]"))
+    assert result.attrs["standard_name"] == "time"
+    assert result.attrs["units"] == "seconds since 1970-01-01 00:00:00"
+    assert result.attrs["calendar"] == "standard"

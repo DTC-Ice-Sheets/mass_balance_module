@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "Python Debugger: Mass balance from thickness",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/mass_balance_module/mass_balance_from_thickness_entrypoint.py",
+            "console": "integratedTerminal",
+            "args": ["--input-zarr", "${workspaceFolder}/ISMIP6_NCAR_CISM_EXP07_GRIS_2014-01-01_2100-12-31_a824079e44bd92ea01ee6de353a0020634e9dd47.zarr", "--output-path", "${workspaceFolder}/out/ISMIP6_new"]
+        }
+    ]
+}
