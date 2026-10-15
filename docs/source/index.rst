@@ -2,15 +2,15 @@ DTC Ice Sheets: Mass Balance Module
 ===================================
 
 The **Mass Balance Module** estimates the mass balance of the Greenland Ice
-Sheet (future update will include Antarctica) from Earth Observation (EO)
+Sheet (a future update will include Antarctica) from Earth Observation (EO)
 data. It is one of the ice-sheet process modules of the ESA Digital Twin
 Component for Ice Sheets (DTC Ice Sheets, DTC-IS), developed under the ESA
 Digital Twin Earth (DTE) programme.
 
-The module turns satellite radar-altimetry surface elevation change, together
+The module converts satellite radar-altimetry surface elevation change, together
 with other EO-derived features such as ice velocity and land surface
 temperature, into gridded mass balance estimates in gigatonnes per year
-(Gt yr\ :sup:`-1`). In DTC-IS it feeds **Use Case 2: EU Sea-Level Response
+(Gt yr\ :sup:`-1`). In a wider DTC-IS context, this module feeds the **Use Case 2: EU Sea-Level Response
 Fingerprint**. There, its output drives the Sea-Level Response EMulator
 (SELREM), which converts ice-sheet mass change into global and regional
 sea-level fingerprints, with a focus on European coastlines.
@@ -131,7 +131,7 @@ A typical observation-driven run is:
 Inputs and outputs
 ------------------
 
-The table below follows the input/output schema of the DTC-IS system design
+The table below outlines the input/output schema of the DTC-IS system design
 (DTSD) and has been updated to match the current implementation.
 
 .. list-table::
