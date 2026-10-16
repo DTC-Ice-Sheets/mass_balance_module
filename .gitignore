@@ -10,6 +10,10 @@ env/
 .venv/
 .env/
 
+# secrets
+.env
+.pypirc
+
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
 
@@ -24,10 +28,13 @@ build/
 .coverage
 *.coveragerc
 
-# Sphinx autosummary generated stubs
-docs/source/_autosummary/
-
 # pytest
 .pytest_cache/
 # ruff
 .ruff_cache/
+
+# Sphinx autosummary generated stubs
+docs/source/_autosummary/
+
+# local data
+.scrapy/
