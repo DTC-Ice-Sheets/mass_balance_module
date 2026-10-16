@@ -1,165 +1,28 @@
-![example workflow](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_test.yml/badge.svg)
-![example workflow](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_deploy.yml/badge.svg)
+![Tests](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_test.yml/badge.svg)
+![Deployment](https://github.com/dtc-ice-sheets/mass_balance_module/actions/workflows/mass_balance_module_deploy.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/DTC-Ice-Sheets/mass_balance_module/blob/main/LICENSE)
 
-# mass_balance_module
+# DTC-IS Mass Balance Module
 
-The **Mass Balance Module** of the ESA Digital Twin Component for Ice Sheets (DTC Ice Sheets, DTC-IS) estimates the
-mass balance of the Greenland Ice Sheet from Earth Observation data. Antarctica will be added in a future update.
+The `mass_balance_module` is a sub-component of the
+[Digital Twin Component for Ice Sheets (DTC-IS)](https://dtc-ice-sheets.org/), an ESA-funded, EO-driven digital twin project.
 
-The module follows the calibrated radar-altimetry method of
-[Simonsen et al. (2021)](https://doi.org/10.1029/2020GL091216). A pre-trained XGBoost model converts C3S-based
-radar-altimetry surface elevation change, ice velocity and land surface temperature into gridded mass balance
-(Gt/yr). The module supports *what-if* scenarios by perturbing these input forcings, and its output drives the
-Sea-Level Response EMulator (SELREM) in DTC-IS Use Case 2 (EU sea-level response fingerprint). It can also convert
-modelled ice thickness, such as ISMIP6 projections, into mass balance.
+This software package fetches Earth Observation (EO) data and derives current and future mass balance predictions into the future.
 
-📖 **Documentation:** <https://dtc-ice-sheets.github.io/mass_balance_module/> covers the scientific background,
-workflow, inputs/outputs, validation and the full API.
+For an in-depth overview of the mass_balance_module please [read the docs](https://dtc-ice-sheets.github.io/mass_balance_module/).
 
-Developers: please familiarise yourself with the
-[DTC Ice Sheets Development Guide](https://dtc-ice-sheets.github.io/dtc_python_template/) before contributing.
+The documentation includes sections on:
+
+1. [Getting started](https://dtc-ice-sheets.github.io/mass_balance_module/quick-start.html)
+1. [Scientific overview](https://dtc-ice-sheets.github.io/mass_balance_module/overview.html)
+1. [API reference](https://dtc-ice-sheets.github.io/mass_balance_module/api.html)
+
+For a more interactive way of exploring the system, please visit the digital twin's [dashboard](https://dashboards.dtc-ice-sheets.org/).
 
 ## Installation for Use
 
-If you simply want to use this package, read this section. If instead you want to develop (i.e. change) this package,
-please read the next section. If you don't know what a Conda environment is or how to use one, please stop here and
-ask one of the Earthwave software engineers to help you out.
+You can install this package with pip:
 
-You may install this package from the GitHub artifact registry. This registry is private to the DTC Ice Sheets project.
-To authenticate, you must first ensure you are logged into a GitHub account which is a part of the DTC Ice Sheets
-organisation.
-
-Then, to download and install the latest version from the DTC Ice Sheets GitHub repository:
-
+``` bash
+pip install mass_balance_module
 ```
-pip install git+https://github.com/dtc-ice-sheets/mass_balance_module.git
-```
-
-The package provides five command-line entry points:
-
-| Entry point | Purpose |
-|---|---|
-| `mass_balance_enhance_elevation_data_entrypoint` | Replace the radar-altimetry features with annual elevation change |
-| `mass_balance_enhance_temperature_data_entrypoint` | Replace the land surface temperature feature (e.g. with projections) |
-| `mass_balance_prediction_entrypoint` | Run the XGBoost model, with optional what-if perturbations, and derive mass balance |
-| `mass_balance_postprocessing_entrypoint` | Compare a predicted run with a control run and write a JSON summary |
-| `mass_balance_from_thickness_entrypoint` | Convert ice thickness (e.g. ISMIP6) to mass balance, by default ready for SELREM |
-
-For example, to predict mass balance with a 10% increase in ice velocity:
-
-```
-python -m mass_balance_module.mass_balance_prediction_entrypoint \
-  --input_geozarr input_features.zarr \
-  --output_path predicted_mass_balance.zarr \
-  --ice_velocity_factor 1.1
-```
-
-See the [Quick Start](https://dtc-ice-sheets.github.io/mass_balance_module/quick_start.html) for examples of every
-entry point. For help on any entry point, run it with `--help`, for example:
-
-```
-python -m mass_balance_module.mass_balance_prediction_entrypoint --help
-```
-
-## Installation for Development
-
-To develop this package, please clone the repository:
-
-```
-git clone https://github.com/dtc-ice-sheets/mass_balance_module.git
-cd mass_balance_module
-```
-
-This project uses poetry to manage package dependencies and virtual environments.
-
-You will need an environment with Python 3.12 and Poetry installed.
-
-We recommend installing Python through Miniconda. To set up Miniconda, you may follow the [quick command-line instructions](<https://docs.anaconda.com/miniconda/install#quick-command-line-install)
-or download a graphical installer for your operating system [here](https://docs.anaconda.com/miniconda/install/) for a
-more user-friendly interface.
-
-Then, you may create your environment and install poetry with:
-
-```
-conda create --name dtc python=3.12
-conda activate dtc
-conda install -c conda-forge poetry=2.1
-```
-
-Alternatively, you may install Python 3.12 from the [download page](https://www.python.org/downloads/) and then install
-poetry with:
-
-```
-curl -sSL https://install.python-poetry.org | python3.12 -
-```
-
-Note: If you prefer managing your environments with a tool like Conda, you must tell Poetry to stop creating environments:
-
-```
-poetry config virtualenvs.create false
-```
-
-Once you have an environment with Python 3.12 and poetry, you may now install the package for development with:
-
-```
-poetry install --with dev
-```
-
-If you're using VSCode, note that you'll need to [tell VSCode to use the interpreter within the environment you've just created](https://code.visualstudio.com/docs/python/environments#_select-and-activate-an-environment).
-
-Next, install the pre-commit hooks:
-
-```
-pre-commit install
-```
-
-Now, you should be able to run and pass the precommit hooks in your environment:
-
-```
-pre-commit
-```
-
-Note: If in need to push code that's not passing pre-commit's checks you can still commit using the --no-verify flag
-
-```
-git commit --no-verify -m "Commit message"
-```
-
-You may also run the unit tests on their own with:
-
-```
-pytest
-```
-
-Pushing directly to main is prohibited. If you wish your work to be included, first push a separate branch to
-the repository and then open a Pull Request. All branches that have not received a commit for more than 30 days
-will be automatically deleted.
-
-## Building locally
-
-To build the Sphinx documentation locally, run:
-
-    poetry run sphinx-build -M html docs/source docs/build
-
-
-## Versioning and releases
-
-Versioning follows a simple model featuring three integers known as the major version, minor version and build number.
-For example, in package version "v3.5.7", the major version is 3, the minor version is 5 and the build number is 7.
-
-- The Major version should change when the package is entirely or almost entirely re-written.
-  This should happen every few years for a well-maintained package.
-- The Minor version should change when new user-facing functionality is added to the package.
-- The Build number should change whenever a bug is fixed or a small tweak is made to the package.
-
-The build number of this package is automatically increased when new code is merged to main (i.e. when a Pull Request
-is closed). We automatically tag the new version and generate a GitHub release for it.
-
-Whenever you make a change a change that warrants a minor or major version jump, you must:
-
-- Determine the new version - if you are updating the minor version, the major should remain unchanged, and the build
-  number should go back to 0 (e.g. v1.0.54 -> v1.1.0). If you are updating the major version, both the minor and the build
-  should be decreased to 0 (e.g. v1.1.43 ->v2.0.0).
-- Update the version in [tool.poetry] section of the pyproject.toml file.
-- Add a line in CHANGELOG.md (at the top of the file, so that reading down the file has the reader moving backwards in
-  time), updating the version number and describing what has been changed in the new major or minor version.

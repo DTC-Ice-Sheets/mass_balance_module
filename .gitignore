@@ -24,6 +24,9 @@ build/
 .coverage
 *.coveragerc
 
+# Sphinx autosummary generated stubs
+docs/source/_autosummary/
+
 # pytest
 .pytest_cache/
 # ruff
