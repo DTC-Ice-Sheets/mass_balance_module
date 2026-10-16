@@ -18,5 +18,5 @@ to get it running locally.
    :maxdepth: 2
 
    Overview <overview.rst>
-   Quick Start <quick_start.rst>
+   Quick Start <quick-start.rst>
    API Reference <api.rst>

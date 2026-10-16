@@ -84,7 +84,7 @@ Module workflow
 ---------------
 
 The package exposes five command-line entry points that are chained together
-in the DTC-IS workflow. See :doc:`quick_start` for example commands and
+in the DTC-IS workflow. See :doc:`quick-start` for example commands and
 :doc:`api` for the full API.
 
 .. list-table::
