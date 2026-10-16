@@ -456,12 +456,12 @@ def plot_mean_timeseries_change_gris_ais_from_csv(gris_csv_path: str, ais_csv_pa
 
 
 if __name__ == "__main__":
-    # Manually define your paths here
-    gris_netcdf_path = "src/use_case_2/GrIS-Annual-RA-VMB-1992-2020.nc"
-    gris_output_csv = "src/use_case_2/GrIS_MB.csv"
-    ais_netcdf_path = "src/use_case_2/GRAVIS-3_GFZOP_0600_AIS_GRID_TUD_0004.nc"
-    ais_output_csv = "src/use_case_2/AIS_MB.csv"
-    comb_output_csv = "src/use_case_2/AIS_and_GrIS_MB.csv"
+    # Manually define your paths here and ensure the files exist at these locations before running the script.
+    gris_netcdf_path = ".scrapy/GrIS-Annual-RA-VMB-1992-2020.nc"
+    gris_output_csv = ".scrapy/GrIS_MB.csv"
+    ais_netcdf_path = ".scrapy/GRAVIS-3_GFZOP_0600_AIS_GRID_TUD_0004.nc"
+    ais_output_csv = ".scrapy/AIS_MB.csv"
+    comb_output_csv = ".scrapy/AIS_and_GrIS_MB.csv"
     # netcdf_to_csv_gris(gris_netcdf_path, gris_output_csv)
     netcdf_to_csv_ais(ais_netcdf_path, ais_output_csv)
 

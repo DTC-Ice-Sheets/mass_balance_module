@@ -1,1 +1,1 @@
-"""Package init."""
+"""Mass Balance Module package."""
