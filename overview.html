@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; DTC Ice Sheets: Mass Balance Module  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quick-start.html" />
+    <link rel="prev" title="DTC Ice Sheets: Mass Balance Module" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DTC Ice Sheets: Mass Balance Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scientific-background">Scientific background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-workflow">Module workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inputs-and-outputs">Inputs and outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-if-scenarios">What-if scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-and-uncertainty">Validation and uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitations-and-ongoing-development">Limitations and ongoing development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#related-dtc-is-components">Related DTC-IS components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-cite">How to cite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#source-documents">Source documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DTC Ice Sheets: Mass Balance Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p>The <strong>Mass Balance Module</strong> estimates the mass balance of the Greenland Ice
+Sheet (a future update will include Antarctica) from Earth Observation (EO)
+data. It is one of the ice-sheet process modules of the ESA Digital Twin
+Component for Ice Sheets (DTC Ice Sheets, DTC-IS), developed under the ESA
+Digital Twin Earth (DTE) programme.</p>
+<p>The module converts satellite radar-altimetry surface elevation change, together
+with other EO-derived features such as ice velocity and land surface
+temperature, into gridded mass balance estimates in gigatonnes per year
+(Gt yr<sup>-1</sup>). In a wider DTC-IS context, this module feeds the <strong>Use Case 2: EU Sea-Level Response
+Fingerprint</strong>. There, its output drives the Sea-Level Response EMulator
+(SELREM), which converts ice-sheet mass change into global and regional
+sea-level fingerprints, with a focus on European coastlines.</p>
+<p>The module also supports <em>what-if</em> scenarios: users can perturb the input
+forcings (for example scaling ice velocity or applying a temperature offset)
+and see how the predicted mass balance, and in turn the sea-level response,
+changes.</p>
+<nav class="contents local" id="on-this-page">
+<p class="topic-title">On this page</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#scientific-background" id="id1">Scientific background</a></p></li>
+<li><p><a class="reference internal" href="#module-workflow" id="id2">Module workflow</a></p></li>
+<li><p><a class="reference internal" href="#inputs-and-outputs" id="id3">Inputs and outputs</a></p></li>
+<li><p><a class="reference internal" href="#what-if-scenarios" id="id4">What-if scenarios</a></p></li>
+<li><p><a class="reference internal" href="#validation-and-uncertainty" id="id5">Validation and uncertainty</a></p></li>
+<li><p><a class="reference internal" href="#limitations-and-ongoing-development" id="id6">Limitations and ongoing development</a></p></li>
+<li><p><a class="reference internal" href="#related-dtc-is-components" id="id7">Related DTC-IS components</a></p></li>
+<li><p><a class="reference internal" href="#how-to-cite" id="id8">How to cite</a></p></li>
+<li><p><a class="reference internal" href="#source-documents" id="id9">Source documents</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id10">References</a></p></li>
+</ul>
+</nav>
+<section id="scientific-background">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Scientific background</a><a class="headerlink" href="#scientific-background" title="Link to this heading"></a></h2>
+<p>The module follows the calibrated radar-altimetry method of
+Simonsen et al. (2021), which produced a Greenland Ice Sheet mass balance
+record for 1992–2020. Combining several EO datasets with machine learning
+makes this a <em>hybrid</em> mass balance estimate.</p>
+<p><strong>Surface elevation change from radar altimetry.</strong>
+The module builds on the long record of Ku-band radar altimetry over the
+Greenland Ice Sheet. This record was first developed in the ESA Climate Change
+Initiative (CCI) and is now produced operationally by the Copernicus Climate
+Change Service (C3S). The standard C3S product gives monthly surface elevation
+change (SEC) on a 25 km grid, from ERS-1, ERS-2, ENVISAT, CryoSat-2 and
+Sentinel-3A/B (Sørensen et al., 2018). For DTC-IS, DTU runs a modified version
+of the C3S processing that shortens the CryoSat-2 and Sentinel-3 data window
+from 3 to 2 years and refines the grid from 25 km to <strong>5 km</strong>. This
+higher-resolution SEC record is hosted on the DTC-IS EO data store and updated
+as new data become available.</p>
+<p><strong>From volume change to mass change.</strong>
+Radar altimetry measures changes in surface height, that is volume change. To
+convert it to mass change you need to know how firn compaction, radar
+penetration and changes in acquisition mode affect the measured signal. Following
+Simonsen et al. (2021), the method learns time-varying calibration fields that
+convert radar-derived elevation change into ice-equivalent (mass) elevation
+change. The original model was trained to reproduce the ICESat-derived mass
+balance (Sørensen et al., 2011) from a set of <em>a priori</em> features. Ten
+candidate features were tested in 768 combinations. The preferred model was
+chosen for its agreement with independent IMBIE and GRACE mass balance, its
+consistency with the static ICESat (2003–2009) calibration field, and the
+glaciological plausibility of its spatial patterns in the 1990s.</p>
+<p><strong>Machine-learning model.</strong>
+The method was originally built on an AdaBoost decision-tree ensemble. The
+operational implementation in this package uses a <strong>pre-trained XGBoost
+(gradient-boosted decision tree) model</strong>. The model is downloaded at run time
+and its SHA-256 checksum is checked before it is loaded. It predicts the rate
+of ice-equivalent elevation change (m ice eq. yr<sup>-1</sup>) for each grid
+cell from:</p>
+<ul class="simple">
+<li><p>the observed annual radar elevation change (<code class="docutils literal notranslate"><span class="pre">RAdh</span></code>),</p></li>
+<li><p>radar-altimetry acquisition features from the C3S radar-altimetry product:
+the acquisition mode (<code class="docutils literal notranslate"><span class="pre">RAmode</span></code>, LRM vs. SARIn, with CryoSat-2 SARIn
+starting over Greenland in October 2010) and the distance from the nearest
+satellite observation to the grid point (<code class="docutils literal notranslate"><span class="pre">RAdist</span></code>),</p></li>
+<li><p>ice surface velocity (<code class="docutils literal notranslate"><span class="pre">iv</span></code>),</p></li>
+<li><p>land surface temperature (<code class="docutils literal notranslate"><span class="pre">LST</span></code>),</p></li>
+<li><p>location (grid <code class="docutils literal notranslate"><span class="pre">X</span></code>/<code class="docutils literal notranslate"><span class="pre">Y</span></code> in EPSG:3413, NSIDC Polar Stereographic North).</p></li>
+</ul>
+<p>The prediction provides mass balance in Gt yr<sup>-1</sup>. Only the pre-trained
+model runs inside the digital twin. All input features are retrieved from the
+DTC-IS EO data store through the Data Download Module (DDM) for the time period
+the user selects.</p>
+</section>
+<section id="module-workflow">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Module workflow</a><a class="headerlink" href="#module-workflow" title="Link to this heading"></a></h2>
+<p>The package exposes five command-line entry points that are chained together
+in the DTC-IS workflow. See <a class="reference internal" href="quick-start.html"><span class="doc">Quick Start</span></a> for example commands and
+<a class="reference internal" href="api.html"><span class="doc">API Reference</span></a> for the full API.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Entry point</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mass_balance_enhance_elevation_data_entrypoint</span></code></p></td>
+<td><p>Converts a cumulative, irregularly sampled elevation-change cube into
+annual (calendar-year) elevation change and rescales windows that are
+not exactly one year long. The radar-altimetry features (<code class="docutils literal notranslate"><span class="pre">RAdh</span></code>,
+<code class="docutils literal notranslate"><span class="pre">RAdist</span></code>, <code class="docutils literal notranslate"><span class="pre">RAmode</span></code>) in the feature dataset are then replaced with
+these updated annual values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mass_balance_enhance_temperature_data_entrypoint</span></code></p></td>
+<td><p>Replaces the land surface temperature feature with a new temperature
+dataset (for example the C3S land surface temperature, or projections
+from the ECMWF Climate Change Adaptation Digital Twin), aggregated to
+annual means and interpolated onto the model grid.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mass_balance_prediction_entrypoint</span></code></p></td>
+<td><p>Applies the user-defined <em>what-if</em> perturbations, runs the XGBoost
+model and derives gridded mass balance (Gt yr<sup>-1</sup>). The grid
+can optionally be downsampled first.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mass_balance_postprocessing_entrypoint</span></code></p></td>
+<td><p>Compares a predicted mass balance run with a control run and writes
+totals, grid metadata, input features and the prediction to JSON for
+the DTC-IS dashboard.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mass_balance_from_thickness_entrypoint</span></code></p></td>
+<td><p>Converts modelled ice thickness, for example ISMIP6 ice-sheet model
+projections, into gridded mass balance. By default it also reshapes the
+result into the point time series expected by SELREM, so modelled
+future mass change can be used alongside the EO-based estimate.</p></td>
+</tr>
+</tbody>
+</table>
+<p>A typical observation-driven run is:</p>
+<ol class="arabic simple">
+<li><p>Retrieve the feature dataset (GeoZarr) and, optionally, updated elevation
+change and temperature data through the DDM.</p></li>
+<li><p>Enhance the feature dataset with the updated elevation and/or temperature
+data.</p></li>
+<li><p>Predict the mass balance, once as a control (no perturbation) and once
+with the user’s <em>what-if</em> settings.</p></li>
+<li><p>Post-process the results for display, and/or pass the mass balance to
+SELREM to compute the sea-level response.</p></li>
+</ol>
+</section>
+<section id="inputs-and-outputs">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Inputs and outputs</a><a class="headerlink" href="#inputs-and-outputs" title="Link to this heading"></a></h2>
+<p>The table below outlines the input/output schema of the DTC-IS system design
+(DTSD) and has been updated to match the current implementation.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12.0%" />
+<col style="width: 25.0%" />
+<col style="width: 48.0%" />
+<col style="width: 15.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>I/O</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Input</p></td>
+<td><p>Surface elevation change</p></td>
+<td><p>Radar-altimetry surface elevation change (C3S-based, 5 km), with the
+related radar features <code class="docutils literal notranslate"><span class="pre">RAdh</span></code>, <code class="docutils literal notranslate"><span class="pre">RAmode</span></code> and <code class="docutils literal notranslate"><span class="pre">RAdist</span></code>, retrieved
+from the EO data store through the DDM and subset in time to the
+user’s selection.</p></td>
+<td><p>Zarr data cube</p></td>
+</tr>
+<tr class="row-odd"><td><p>Input</p></td>
+<td><p>Ice velocity</p></td>
+<td><p>SAR-derived ice surface velocity (<code class="docutils literal notranslate"><span class="pre">iv</span></code>), retrieved through the DDM.</p></td>
+<td><p>Zarr data cube</p></td>
+</tr>
+<tr class="row-even"><td><p>Input</p></td>
+<td><p>Land surface temperature</p></td>
+<td><p>EO-derived ice surface temperature (<code class="docutils literal notranslate"><span class="pre">LST</span></code>), retrieved through the DDM.
+It can be replaced with other temperature data (for example climate
+projections) in the temperature enhancement step.</p></td>
+<td><p>Zarr data cube</p></td>
+</tr>
+<tr class="row-odd"><td><p>Input</p></td>
+<td><p>Scenario parameters</p></td>
+<td><p>Multipliers/offsets that perturb the forcings (see
+<a class="reference internal" href="#what-if-scenarios">What-if scenarios</a>).</p></td>
+<td><p>Floating-point numbers</p></td>
+</tr>
+<tr class="row-even"><td><p>Input</p></td>
+<td><p>Ice thickness (optional)</p></td>
+<td><p>Modelled ice thickness and, optionally, grounded ice fraction (e.g.
+ISMIP6), identified by CF <code class="docutils literal notranslate"><span class="pre">standard_name</span></code>/<code class="docutils literal notranslate"><span class="pre">long_name</span></code>
+(<code class="docutils literal notranslate"><span class="pre">land_ice_thickness</span></code>, <code class="docutils literal notranslate"><span class="pre">grounded_ice_sheet_area_fraction</span></code>). Used
+only by the thickness-to-mass-balance entry point.</p></td>
+<td><p>Zarr data cube</p></td>
+</tr>
+<tr class="row-odd"><td><p>Output</p></td>
+<td><p>Mass balance</p></td>
+<td><p>Gridded mass balance (<code class="docutils literal notranslate"><span class="pre">mass_balance</span></code>, Gt yr<sup>-1</sup>) together with
+the predicted ice-equivalent elevation change (<code class="docutils literal notranslate"><span class="pre">prediction</span></code>,
+m ice eq. yr<sup>-1</sup>) on the EPSG:3413 grid, per year.</p></td>
+<td><p>Zarr data cube</p></td>
+</tr>
+<tr class="row-even"><td><p>Output</p></td>
+<td><p>Mass balance from thickness</p></td>
+<td><p>Gridded mass balance (kg cell<sup>-1</sup> yr<sup>-1</sup>), or by default
+a point time series ready for SELREM.</p></td>
+<td><p>GeoZarr</p></td>
+</tr>
+<tr class="row-odd"><td><p>Output</p></td>
+<td><p>Dashboard summary</p></td>
+<td><p>Total predicted and control mass balance, grid extent and resolution,
+years, CRS, input features and the predicted field.</p></td>
+<td><p>JSON</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-if-scenarios">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">What-if scenarios</a><a class="headerlink" href="#what-if-scenarios" title="Link to this heading"></a></h2>
+<p>DTC-IS lets users explore how the ice sheet would respond to changed forcing,
+not just reproduce observations. The prediction entry point applies the
+following perturbations to the input features before the model runs:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 15.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--ice_velocity_factor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Multiplies the ice velocity feature (<code class="docutils literal notranslate"><span class="pre">iv</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--land_surface_temperature_offset</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Adds an offset to the land surface temperature feature (<code class="docutils literal notranslate"><span class="pre">LST</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--radar_elevation_factor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Multiplies the observed radar elevation change feature (<code class="docutils literal notranslate"><span class="pre">RAdh</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>The temperature enhancement step also lets you replace observed surface
+temperature with projected temperature fields. The C3S land surface
+temperature record and runs driven by the ECMWF Climate Change Adaptation
+Digital Twin have been used this way to make short-term mass balance
+forecasts. Running the post-processing step on a control run and a perturbed
+run gives the change in total mass balance caused by the scenario. Passing
+the result to SELREM shows how that change affects regional sea level.</p>
+</section>
+<section id="validation-and-uncertainty">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Validation and uncertainty</a><a class="headerlink" href="#validation-and-uncertainty" title="Link to this heading"></a></h2>
+<p>The module has been validated for the Greenland Ice Sheet. The
+radar-altimetry volume mass balance (radar-VMB) estimate was compared with
+the following independent datasets:</p>
+<ul class="simple">
+<li><p>satellite gravimetry from GRACE/GRACE-FO (Barletta et al., 2020),</p></li>
+<li><p>input–output (mass budget) estimates by Mouginot et al. (2019),
+Colgan et al. (2019) and Mankoff et al. (2021), and</p></li>
+<li><p>the IMBIE reconciled assessment (Otosaka et al., 2023).</p></li>
+</ul>
+<p>Over the 28-year record (1992–2020), the radar-VMB reproduces both the
+long-term trend and the interannual variability of Greenland mass balance
+within the uncertainties of these independent estimates. It is strongly
+correlated with the GRACE mass balance in both timing and size of the
+fluctuations. Compared year by year with the mass budget record of
+Mankoff et al. (2021), the root-mean-square error (RMSE) is
+<strong>86 Gt yr</strong><sup>-1</sup>.</p>
+<p>The largest discrepancies occur in years of unusually low mass loss (1992,
+1995–1998 and 2019), when the model underestimates how much mass the ice
+sheet retained. This is a known limitation of decision-tree ensembles. They
+do not capture extreme or non-linear events at the edge of the training
+data well, such as the cooling after the 1991 Pinatubo eruption. The model can
+also misinterpret climate extremes, so its results for such years should be
+interpreted with care.</p>
+<p>The independent validation datasets do not always agree with each other
+within their stated uncertainties (2014, for example). The module therefore
+reports RMSE against reference datasets as a quantitative measure of
+performance. Because the model is fast, many feature-perturbation experiments
+(more than 1000) can be run alongside the mass balance calculation and used
+to propagate errors from start to finish through the mass balance and
+SELREM chain. The Antarctic Ice Sheet will be validated against an Antarctic
+mass balance assessment once the Antarctic model is released.</p>
+</section>
+<section id="limitations-and-ongoing-development">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Limitations and ongoing development</a><a class="headerlink" href="#limitations-and-ongoing-development" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Spatial coverage.</strong> The module currently covers the Greenland Ice
+Sheet only, on the EPSG:3413 grid. The method can be transferred to
+Antarctica using the Antarctic C3S elevation-change and ice-velocity
+products. This extension is ongoing and is considered incremental research
+with low risk.</p></li>
+<li><p><strong>Extreme years.</strong> Like other decision-tree ensembles, the model cannot
+extrapolate far outside the conditions it was trained on (see
+<a class="reference internal" href="#validation-and-uncertainty">Validation and uncertainty</a>). Results for anomalous years and for strongly
+perturbed what-if scenarios should be read with this in mind.</p></li>
+<li><p><strong>Future projections.</strong> Future mass change from ice-sheet model
+projections (ISMIP6; Nowicki et al., 2016) can be brought into the
+same framework through the thickness-to-mass-balance entry point. R&amp;D
+continues on how best to combine these projections with the EO-driven
+estimate, so that user-defined what-if scenarios stay within the range of
+modelled futures.</p></li>
+<li><p><strong>Towards hybrid, explainable models.</strong> A purely data-driven model offers
+limited insight into physical processes. In the future, the module could
+possibly move towards hybrid, explainable models that combine EO data with
+physical constraints on ice and snow processes. Approaches of interest
+include symbolic regression (e.g. Qlattice; Wilstrup and Kasak, 2021) and
+physics-informed neural networks such as PINNICLE (Cheng et al., 2024).</p></li>
+</ul>
+</section>
+<section id="related-dtc-is-components">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Related DTC-IS components</a><a class="headerlink" href="#related-dtc-is-components" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Sea-Level Response EMulator (SELREM)</strong>, in the <code class="docutils literal notranslate"><span class="pre">sea_level_response</span></code>
+package: turns mass balance from this module (or from user-supplied or
+ISMIP6 datasets) into global and local sea-level fingerprints with
+uncertainties.</p></li>
+<li><p><strong>Data Download Module (DDM)</strong>: retrieves the EO input features from the
+DTC-IS EO data store and other sources.</p></li>
+<li><p><strong>DTC-IS Query API and dashboards</strong>: run the module as part of the
+Use Case 2 workflow. Users can choose a time range and what-if parameters
+in the interactive dashboard or the accompanying Jupyter Notebook, and
+export intermediate mass balance datasets.</p></li>
+</ul>
+</section>
+<section id="how-to-cite">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">How to cite</a><a class="headerlink" href="#how-to-cite" title="Link to this heading"></a></h2>
+<p>If you use mass balance estimates produced by this module, please cite the
+underlying method:</p>
+<blockquote>
+<div><p>Simonsen, S. B., Barletta, V. R., Colgan, W. T., &amp; Sørensen, L. S. (2021).
+Greenland Ice Sheet mass balance (1992–2020) from calibrated radar
+altimetry. <em>Geophysical Research Letters</em>, 48, e2020GL091216.
+<a class="reference external" href="https://doi.org/10.1029/2020GL091216">https://doi.org/10.1029/2020GL091216</a></p>
+</div></blockquote>
+<p>and mention that the estimates were produced with the DTC Ice Sheets Mass
+Balance Module [date].</p>
+</section>
+<section id="source-documents">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Source documents</a><a class="headerlink" href="#source-documents" title="Link to this heading"></a></h2>
+<p>The scientific description on this page is based on the following DTC Ice
+Sheets project deliverables (approved 1 May 2026):</p>
+<ul class="simple">
+<li><p><strong>DTU-ESA-DTC-IceSheet-RnDRdv3.00</strong>: Research and Development Report,
+Draft Version 3, §2.1.1 Ice Sheet Mass Balance Module.</p></li>
+<li><p><strong>DTU-ESA-DTC-IceSheet-DTSDdv3.00</strong>: Design and Technical Specifications
+Document, Draft Version 3, Ice sheet mass balance module and Use Case 2
+workflow.</p></li>
+<li><p><strong>DTU-ESA-DTC-IceSheet-VRdv2.00</strong>: Validation Report, Draft Version 2,
+§5.1 Ice Sheet Mass Balance and SELREM.</p></li>
+<li><p><strong>DTU-ESA-DTC-IceSheet-RBDdv3.00</strong>: Requirement Baseline Document, Draft
+Version 3, Use Case 2 requirements.</p></li>
+<li><p><strong>DTU-ESA-DTC-IceSheet-PR06v1.00</strong>: Progress Report 6.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">References</a><a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Barletta, V. R., Sørensen, L. S., Simonsen, S. B., &amp; Forsberg, R. (2020).
+Gravitational mass balance of Greenland 2003 to present v3.0. Technical
+University of Denmark. Dataset. <a class="reference external" href="https://doi.org/10.11583/DTU.12866579.v5">https://doi.org/10.11583/DTU.12866579.v5</a></p></li>
+<li><p>Cheng, G., Morlighem, M., &amp; Francis, S. (2024). Forward and inverse modeling
+of ice sheet flow using physics-informed neural networks: Application to
+Helheim Glacier, Greenland. <em>JGR: Machine Learning and Computation</em>, 1,
+e2024JH000169. <a class="reference external" href="https://doi.org/10.1029/2024JH000169">https://doi.org/10.1029/2024JH000169</a></p></li>
+<li><p>Colgan, W., Mankoff, K. D., Kjeldsen, K. K., et al. (2019). Greenland ice
+sheet mass balance assessed by PROMICE (1995–2015). <em>GEUS Bulletin</em>, 43.
+<a class="reference external" href="https://doi.org/10.34194/GEUSB-201943-02-01">https://doi.org/10.34194/GEUSB-201943-02-01</a></p></li>
+<li><p>Mankoff, K. D., Fettweis, X., Langen, P. L., et al. (2021). Greenland ice
+sheet mass balance from 1840 through next week. <em>Earth System Science
+Data</em>, 13, 5001–5025. <a class="reference external" href="https://doi.org/10.5194/essd-13-5001-2021">https://doi.org/10.5194/essd-13-5001-2021</a></p></li>
+<li><p>Mouginot, J., Rignot, E., Bjørk, A. A., et al. (2019). Forty-six years of
+Greenland Ice Sheet mass balance from 1972 to 2018. <em>PNAS</em>, 116(19),
+9239–9244. <a class="reference external" href="https://doi.org/10.1073/pnas.1904242116">https://doi.org/10.1073/pnas.1904242116</a></p></li>
+<li><p>Nowicki, S. M. J., Payne, A., Larour, E., et al. (2016). Ice Sheet Model
+Intercomparison Project (ISMIP6) contribution to CMIP6. <em>Geoscientific
+Model Development</em>, 9, 4521–4545. <a class="reference external" href="https://doi.org/10.5194/gmd-9-4521-2016">https://doi.org/10.5194/gmd-9-4521-2016</a></p></li>
+<li><p>Otosaka, I. N., Shepherd, A., Ivins, E. R., et al. (2023). Mass balance of
+the Greenland and Antarctic ice sheets from 1992 to 2020. <em>Earth System
+Science Data</em>, 15, 1597–1616. <a class="reference external" href="https://doi.org/10.5194/essd-15-1597-2023">https://doi.org/10.5194/essd-15-1597-2023</a></p></li>
+<li><p>Simonsen, S. B., Barletta, V. R., Colgan, W. T., &amp; Sørensen, L. S. (2021).
+Greenland Ice Sheet mass balance (1992–2020) from calibrated radar
+altimetry. <em>Geophysical Research Letters</em>, 48, e2020GL091216.
+<a class="reference external" href="https://doi.org/10.1029/2020GL091216">https://doi.org/10.1029/2020GL091216</a></p></li>
+<li><p>Sørensen, L. S., Simonsen, S. B., Nielsen, K., et al. (2011). Mass balance
+of the Greenland ice sheet (2003–2008) from ICESat data – the impact of
+interpolation, sampling and firn density. <em>The Cryosphere</em>, 5, 173–186.
+<a class="reference external" href="https://doi.org/10.5194/tc-5-173-2011">https://doi.org/10.5194/tc-5-173-2011</a></p></li>
+<li><p>Sørensen, L. S., Simonsen, S. B., Forsberg, R., et al. (2018). 25 years of
+elevation changes of the Greenland Ice Sheet from ERS, Envisat, and
+CryoSat-2 radar altimetry. <em>Earth and Planetary Science Letters</em>, 495,
+234–241. <a class="reference external" href="https://doi.org/10.1016/j.epsl.2018.05.015">https://doi.org/10.1016/j.epsl.2018.05.015</a></p></li>
+<li><p>Wilstrup, C., &amp; Kasak, J. (2021). Symbolic regression outperforms other
+models for small data sets. arXiv:2103.15147.
+https://arxiv.org/abs/2103.15147</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="DTC Ice Sheets: Mass Balance Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quick-start.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

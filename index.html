@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DTC Ice Sheets: Mass Balance Module &mdash; DTC Ice Sheets: Sea Level Response  documentation</title>
+  <title>DTC Ice Sheets: Mass Balance Module &mdash; DTC Ice Sheets: Mass Balance Module  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Start" href="quick_start.html" /> 
+    <link rel="next" title="Overview" href="overview.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -34,7 +34,7 @@
           
           
           <a href="#" class="icon icon-home">
-            DTC Ice Sheets: Sea Level Response
+            DTC Ice Sheets: Mass Balance Module
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -45,11 +45,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -58,7 +56,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">DTC Ice Sheets: Sea Level Response</a>
+          <a href="#">DTC Ice Sheets: Mass Balance Module</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -78,24 +76,40 @@
              
   <section id="dtc-ice-sheets-mass-balance-module">
 <h1>DTC Ice Sheets: Mass Balance Module<a class="headerlink" href="#dtc-ice-sheets-mass-balance-module" title="Link to this heading"></a></h1>
-<p>TODO - add introduction and overview of the DTC Ice Sheets: Mass Balance Module.</p>
+<p>The <cite>mass_balance_module</cite> is a sub-component of the
+<a class="reference external" href="https://dtc-ice-sheets.org/">Digital Twin Component for Ice Sheets (DTC-IS)</a>, an ESA-funded, EO-driven digital twin
+project.</p>
+<p>This software package fetches Earth Observation (EO) data and derives current and future mass balance predictions into the future.
+It can be run independently or as part of the larger DTC-IS framework.</p>
+<p>For a more interactive way of exploring the system, please visit the digital twin’s
+<a class="reference external" href="https://dashboards.dtc-ice-sheets.org/">dashboard</a>.</p>
+<p>The remainder of this documentation page provides an overview of the mass_balance_module and details about how
+to get it running locally.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick Start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#enhance-elevation-data">Enhance Elevation Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#enhance-temperature-data">Enhance Temperature Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#convert-thickness-to-mass-balance">Convert Thickness to Mass Balance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#predict-mass-balance">Predict Mass Balance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#post-process-predictions">Post-process Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quick_start.html#getting-help">Getting Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#scientific-background">Scientific background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#module-workflow">Module workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#inputs-and-outputs">Inputs and outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-if-scenarios">What-if scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#validation-and-uncertainty">Validation and uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#limitations-and-ongoing-development">Limitations and ongoing development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#related-dtc-is-components">Related DTC-IS components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#how-to-cite">How to cite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#source-documents">Source documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#references">References</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#enhance-elevation-data">Enhance Elevation Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#enhance-temperature-data">Enhance Temperature Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#convert-thickness-to-mass-balance">Convert Thickness to Mass Balance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#predict-mass-balance">Predict Mass Balance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#post-process-predictions">Post-process Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#getting-help">Getting Help</a></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/mass_balance_module.html">mass_balance_module</a></li>
 </ul>
 </li>
@@ -107,7 +121,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quick_start.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

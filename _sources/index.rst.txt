@@ -1,20 +1,22 @@
-.. DTC Python Template documentation master file, created by
-   sphinx-quickstart on Tue Jan 21 10:28:47 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 DTC Ice Sheets: Mass Balance Module
-====================================
+===================================
 
-TODO - add introduction and overview of the DTC Ice Sheets: Mass Balance Module.
+The `mass_balance_module` is a sub-component of the
+`Digital Twin Component for Ice Sheets (DTC-IS) <https://dtc-ice-sheets.org/>`_, an ESA-funded, EO-driven digital twin
+project.
+
+This software package fetches Earth Observation (EO) data and derives current and future mass balance predictions into the future.
+It can be run independently or as part of the larger DTC-IS framework.
+
+For a more interactive way of exploring the system, please visit the digital twin's
+`dashboard <https://dashboards.dtc-ice-sheets.org/>`_.
+
+The remainder of this documentation page provides an overview of the mass_balance_module and details about how
+to get it running locally.
 
 .. toctree::
    :maxdepth: 2
 
-   quick_start
-
-.. toctree::
-   :maxdepth: 2
-   :caption: API Reference:
-
-   API <api.rst>
+   Overview <overview.rst>
+   Quick Start <quick-start.rst>
+   API Reference <api.rst>
