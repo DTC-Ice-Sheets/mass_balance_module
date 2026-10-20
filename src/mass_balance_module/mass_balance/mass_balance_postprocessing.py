@@ -34,13 +34,13 @@ def mass_balance_postprocess(
         - "prediction": The predicted mass balance values (2D list).
     """
     return {
-        "total_mass_balance": mass_balance_predicted.mass_balance.sum().item(),
-        "control_mass_balance": mass_balance_control.mass_balance.sum().item(),
-        "x_min": mass_balance_predicted.x.min().item(),
-        "x_max": mass_balance_predicted.x.max().item(),
+        "total_mass_balance": mass_balance_predicted.mass_balance.sum().compute().item(),
+        "control_mass_balance": mass_balance_control.mass_balance.sum().compute().item(),
+        "x_min": mass_balance_predicted.x.min().compute().item(),
+        "x_max": mass_balance_predicted.x.max().compute().item(),
         "x_res": len(mass_balance_predicted.x),
-        "y_min": mass_balance_predicted.y.min().item(),
-        "y_max": mass_balance_predicted.y.max().item(),
+        "y_min": mass_balance_predicted.y.min().compute().item(),
+        "y_max": mass_balance_predicted.y.max().compute().item(),
         "y_res": len(mass_balance_predicted.y),
         "years": mass_balance_predicted.time.values.tolist() if "time" in mass_balance_predicted.dims else None,
         "crs": DATASET_CRS,

@@ -25,6 +25,7 @@ def main(
     land_surface_temperature_offset: float = 0.0,
     radar_elevation_factor: float = 1.0,
     downsample_factor: int = 1,
+    target_chunk_size: str = "1024MB",
 ) -> None:
     """Command line entry point for the mass balance prediction module.
 
@@ -42,6 +43,9 @@ def main(
         Factor to apply to the radar elevation feature before prediction.
     downsample_factor : int
         If >1, downsample the output by this factor in both spatial dimensions.
+    target_chunk_size : str
+        Target chunk size in MB for the output predictions zarr.
+        Of the form "<number>MB", e.g., "1024MB".
     """
     # TODO Temporarily fallback to placeholder dataset when input geozarr is empty
     dataset = xr.open_zarr(DATASET_URL) if input_geozarr in ("", ".") else xr.open_zarr(input_geozarr)
@@ -59,7 +63,9 @@ def main(
     # Important to run mass balance *after* downsampling, since cell areas are different
     predictions = derive_mass_balance_from_elevation_change(predictions)
 
-    predictions.to_zarr(output_path, zarr_format=2)
+    predictions = predictions.chunk(chunks=target_chunk_size)
+
+    predictions.to_zarr(output_path, zarr_format=2, mode="w")
 
 
 if __name__ == "__main__":
